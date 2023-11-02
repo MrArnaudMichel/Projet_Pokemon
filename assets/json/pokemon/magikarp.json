@@ -1,0 +1,95 @@
+{
+  "klass": "Specie",
+  "id": 129,
+  "dbSymbol": "magikarp",
+  "forms": [
+    {
+      "form": 0,
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ],
+          "dbSymbol": "gyarados",
+          "form": 0
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 70,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 1280,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 19,
+      "resources": {
+        "icon": "129",
+        "iconShiny": "",
+        "front": "129",
+        "frontF": "129f",
+        "frontShiny": "129",
+        "frontShinyF": "129f",
+        "back": "129",
+        "backF": "129f",
+        "backShiny": "129",
+        "backShinyF": "129f",
+        "footprint": "129",
+        "character": "129_0",
+        "characterShiny": "129s_0",
+        "cry": "129cry.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "level": 1,
+          "move": "splash"
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "level": 15,
+          "move": "tackle"
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "level": 30,
+          "move": "flail"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bounce"
+        }
+      ]
+    }
+  ]
+}

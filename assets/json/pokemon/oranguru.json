@@ -1,0 +1,60 @@
+{
+  "klass": "Specie",
+  "id": 765,
+  "dbSymbol": "oranguru",
+  "forms": [
+    {
+      "form": 0,
+      "height": 1.5,
+      "weight": 76,
+      "type1": "normal",
+      "type2": "psychic",
+      "baseHp": 90,
+      "baseAtk": 60,
+      "baseDfe": 80,
+      "baseSpd": 60,
+      "baseAts": 90,
+      "baseDfs": 110,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 2,
+      "evolutions": [],
+      "experienceType": 2,
+      "baseExperience": 172,
+      "baseLoyalty": 70,
+      "catchRate": 45,
+      "femaleRate": 50,
+      "breedGroups": [
+        5,
+        5
+      ],
+      "hatchSteps": 5120,
+      "babyDbSymbol": "oranguru",
+      "babyForm": 0,
+      "itemHeld": [],
+      "abilities": [
+        "inner_focus",
+        "telepathy",
+        "symbiosis"
+      ],
+      "frontOffsetY": 18,
+      "resources": {
+        "icon": "765",
+        "iconShiny": "",
+        "front": "765",
+        "frontShiny": "765",
+        "back": "765",
+        "backShiny": "765",
+        "footprint": "",
+        "character": "",
+        "characterShiny": "",
+        "cry": "",
+        "hasFemale": false
+      },
+      "moveSet": []
+    }
+  ]
+}

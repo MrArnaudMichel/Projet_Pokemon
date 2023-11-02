@@ -1,0 +1,113 @@
+{
+  "klass": "Specie",
+  "id": 784,
+  "dbSymbol": "kommo_o",
+  "forms": [
+    {
+      "form": 0,
+      "height": 1.6,
+      "weight": 78.2,
+      "type1": "dragon",
+      "type2": "fighting",
+      "baseHp": 75,
+      "baseAtk": 110,
+      "baseDfe": 125,
+      "baseSpd": 85,
+      "baseAts": 100,
+      "baseDfs": 105,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 3,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 2,
+      "baseExperience": 270,
+      "baseLoyalty": 70,
+      "catchRate": 45,
+      "femaleRate": 50,
+      "breedGroups": [
+        14,
+        14
+      ],
+      "hatchSteps": 10240,
+      "babyDbSymbol": "__undef__",
+      "babyForm": 0,
+      "itemHeld": [],
+      "abilities": [
+        "bulletproof",
+        "soundproof",
+        "overcoat"
+      ],
+      "frontOffsetY": 8,
+      "resources": {
+        "icon": "784",
+        "iconShiny": "",
+        "front": "784",
+        "frontShiny": "784",
+        "back": "784",
+        "backShiny": "784",
+        "footprint": "",
+        "character": "",
+        "characterShiny": "",
+        "cry": "",
+        "hasFemale": false
+      },
+      "moveSet": []
+    },
+    {
+      "form": 1,
+      "height": 2.4,
+      "weight": 207.5,
+      "type1": "dragon",
+      "type2": "fighting",
+      "baseHp": 75,
+      "baseAtk": 110,
+      "baseDfe": 125,
+      "baseSpd": 85,
+      "baseAts": 100,
+      "baseDfs": 105,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 3,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 2,
+      "baseExperience": 270,
+      "baseLoyalty": 70,
+      "catchRate": 45,
+      "femaleRate": 50,
+      "breedGroups": [
+        14,
+        14
+      ],
+      "hatchSteps": 10240,
+      "babyDbSymbol": "__undef__",
+      "babyForm": 1,
+      "itemHeld": [],
+      "abilities": [
+        "bulletproof",
+        "soundproof",
+        "overcoat"
+      ],
+      "frontOffsetY": 8,
+      "resources": {
+        "icon": "784",
+        "iconShiny": "",
+        "front": "784",
+        "frontShiny": "784",
+        "back": "784",
+        "backShiny": "784",
+        "footprint": "",
+        "character": "",
+        "characterShiny": "",
+        "cry": "",
+        "hasFemale": false
+      },
+      "moveSet": []
+    }
+  ]
+}
