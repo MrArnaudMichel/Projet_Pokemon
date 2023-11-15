@@ -16,7 +16,7 @@
 
 ---
 ## Description
-This is a remake of a Pokémon game. If you want to see the progress of the project you can follow it on my [Youtube](https://www.youtube.com/channel/UC5-MVwnE8p-8YvdTBkLhYKg) channel!. He is not named and currently, the storyline is not implemented.
+This is a remake of a Pokémon game. The storyline is not implemented.
 
 ## Installation
 To install this project, you will need to download the repository. You will also need to install the following modules:
