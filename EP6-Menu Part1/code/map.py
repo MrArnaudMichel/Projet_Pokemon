@@ -1,7 +1,3 @@
-import json
-import os
-import pathlib
-
 import pygame
 import pyscroll
 import pytmx
@@ -9,12 +5,10 @@ import pytmx
 from player import Player
 from screen import Screen
 from switch import Switch
-from controller import Controller
 
 
 class Map:
-    def __init__(self, screen: Screen, controller: Controller):
-        self.controller = controller
+    def __init__(self, screen: Screen):
         self.screen: Screen = screen
         self.tmx_data: pytmx.TiledMap | None = None
         self.map_layer: pyscroll.BufferedRenderer | None = None
@@ -83,12 +77,3 @@ class Map:
     def pose_player(self, switch: Switch) -> None:
         position = self.tmx_data.get_object_by_name("spawn " + self.current_map.name + " " + str(switch.port))
         self.player.position = pygame.math.Vector2(position.x, position.y)
-
-    def save_in_file(self, path: str):
-        if not pathlib.Path(f"../../assets/saves/{path}/maps/{self.current_map.name}").exists():
-            os.makedirs(f"../../assets/saves/{path}/maps/{self.current_map.name}")
-        with open(f"../../assets/saves/{path}/maps/{self.current_map.name}", "w") as file:
-            json.dump(self.tmx_data.tiledgidmap, file)
-        for i, layer in enumerate(self.tmx_data.visible_layers):
-            with open(f"../../assets/saves/{path}/maps/{self.current_map.name}/layer{i}", "w") as file:
-                json.dump(layer.data, file)
