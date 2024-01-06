@@ -11,8 +11,10 @@ from save import Save
 from tool import Tool
 from keylistener import KeyListener
 
+
 class Option:
-    def __init__(self, screen: Screen, controller: Controller, map: Map, language: str, save: Save, keylistener: KeyListener):
+    def __init__(self, screen: Screen, controller: Controller, map: Map, language: str, save: Save,
+                 keylistener: KeyListener):
         self.screen: Screen = screen
         self.controller: Controller = controller
         self.map: Map = map
@@ -29,7 +31,6 @@ class Option:
         self.background_color = (4, 18, 18)
         self.background: pygame.Surface = pygame.surface.Surface((self.screen.get_size()[0], 80))
         self.background.fill(self.background_color)
-
 
     def update(self):
         if not self.initialization:

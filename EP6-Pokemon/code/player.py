@@ -11,7 +11,8 @@ from keylistener import KeyListener
 
 
 class Player(Entity):
-    def __init__(self, screen: Screen, controller: Controller, x: int, y: int, keylistener: KeyListener, ingame_time: datetime.timedelta = datetime.timedelta(seconds=0)) -> None:
+    def __init__(self, screen: Screen, controller: Controller, x: int, y: int, keylistener: KeyListener,
+                 ingame_time: datetime.timedelta = datetime.timedelta(seconds=0)) -> None:
         super().__init__(screen, x, y)
         self.keylistener = keylistener
         self.name = "Lucas"
@@ -96,7 +97,6 @@ class Player(Entity):
             self.keylistener.remove_key(self.controller.get_key("quit"))
             return
 
-
     def switch_bike(self, deactive=False):
         if self.speed == 1 and not deactive:
             self.speed = 2
@@ -108,4 +108,4 @@ class Player(Entity):
 
     def update_ingame_time(self):
         if self.screen.get_delta_time() > 0:
-            self.ingame_time += datetime.timedelta(seconds=self.screen.get_delta_time()/1000)
+            self.ingame_time += datetime.timedelta(seconds=self.screen.get_delta_time() / 1000)

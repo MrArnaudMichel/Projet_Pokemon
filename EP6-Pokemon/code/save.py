@@ -6,6 +6,7 @@ from map import Map
 from player import Player
 from sql import SQL
 
+
 class Save:
     def __init__(self, path: str, map: Map):
         self.path = path
@@ -17,7 +18,7 @@ class Save:
         position = self.map.player.position
         player_info = {
             "name": self.map.player.name,
-            #"type": self.map.player.type,
+            # "type": self.map.player.type,
             "position": {
                 "x": position[0],
                 "y": position[1]
@@ -58,4 +59,3 @@ class Save:
 
     def dump(self, element: dict):
         return json.dumps(element, indent=4)
-

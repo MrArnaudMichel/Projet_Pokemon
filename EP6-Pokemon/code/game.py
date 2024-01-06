@@ -35,7 +35,6 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
             elif event.type == pygame.KEYDOWN:
-                print("dddd")
                 self.keylistener.add_key(event.key)
             elif event.type == pygame.KEYUP:
                 self.keylistener.remove_key(event.key)

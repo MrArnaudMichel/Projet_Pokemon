@@ -1,6 +1,5 @@
 import pygame
 
-
 from screen import Screen
 from tool import Tool
 
