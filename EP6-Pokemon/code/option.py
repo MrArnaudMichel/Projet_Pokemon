@@ -53,6 +53,7 @@ class Option:
 
     def check_end(self):
         if self.keylistener.key_pressed(self.controller.get_key("quit")):
+            self.initialization = False
             self.player.menu_option = False
             self.keylistener.remove_key(self.controller.get_key("quit"))
             return
