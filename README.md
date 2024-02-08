@@ -66,7 +66,7 @@ If you have any questions, you can contact me at the following email address: <a
 ## Features
 - [x] Player
   - [x] Movement
-  - [ ] Interaction
+  - [x] Interaction
   - [ ] Inventory
   - [ ] Pokédex
 - [ ] Pokémon
@@ -80,7 +80,7 @@ If you have any questions, you can contact me at the following email address: <a
   - [ ] Music
   - [ ] Day/Night Cycle
   - [ ] Time
-- [ ] Menu
+- [x] Menu
 - [ ] Save
 - [ ] Options
 - [ ] Credits
