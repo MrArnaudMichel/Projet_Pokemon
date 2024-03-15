@@ -1,0 +1,4 @@
+class Objets:
+  def __init__ (self,  prix_achat):
+    self.prix_achat = prix_achat
+    self.prix_vente = (self.prix_achat * 2) / 3
