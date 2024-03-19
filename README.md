@@ -16,7 +16,7 @@
 
 ---
 ## Description
-This is a remake of a Pokémon game. The storyline is not implemented.
+This is a Pokemon fan game made in python using pygame.
 
 ## Installation
 To install this project, you will need to download the repository. You will also need to install the following modules:
