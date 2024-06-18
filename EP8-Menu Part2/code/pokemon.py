@@ -59,7 +59,7 @@ class Pokemon:
         self.xp = 0
         self.points_ev = 0
 
-        self.moves: list[Move] = self.setmoves()
+        self.moves: list[Move] = self.set_moves()
         self.status = ""
 
         self.xp_to_next_level = self.xp_to_next_level()
@@ -114,7 +114,7 @@ class Pokemon:
             elif self.level <= 100:
                 return math.floor((self.level ** 3) * (160 - self.level) / 100)
 
-    def setmoves(self):
+    def set_moves(self):
         list_move: list[dict] = []
         list_attack: list[Move] = []
         for move in self.moveSet:
@@ -146,5 +146,5 @@ class Pokemon:
         }
 
     @staticmethod
-    def createPokemon(name: str, level: int) -> "Pokemon":
+    def create_pokemon(name: str, level: int) -> "Pokemon":
         return Pokemon(json.load(open(f"../../assets/json/pokemon/{name.lower()}.json")), level)

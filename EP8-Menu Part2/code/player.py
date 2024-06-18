@@ -18,7 +18,7 @@ class Player(Entity):
         self.name = "Lucas"
         self.controller = controller
         self.pokemons = []
-        self.pokemons.append(Pokemon.createPokemon("Bulbasaur", 5))
+        self.pokemons.append(Pokemon.create_pokemon("Bulbasaur", 5))
         self.inventory = None
         self.pokedex = None
         self.pokedollars = 0
