@@ -6,10 +6,10 @@ import pygame
 import pyscroll
 import pytmx
 
+from controller import Controller
 from player import Player
 from screen import Screen
 from switch import Switch
-from controller import Controller
 
 
 class Map:

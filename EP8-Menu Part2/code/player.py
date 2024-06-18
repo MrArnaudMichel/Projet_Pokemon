@@ -2,12 +2,12 @@ import datetime
 
 import pygame
 
-from entity import Entity
 from controller import Controller
+from entity import Entity
+from keylistener import KeyListener
+from pokemon import Pokemon
 from screen import Screen
 from switch import Switch
-from pokemon import Pokemon
-from keylistener import KeyListener
 
 
 class Player(Entity):

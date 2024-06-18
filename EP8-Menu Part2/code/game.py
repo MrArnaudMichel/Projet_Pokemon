@@ -1,12 +1,12 @@
 import pygame
 
+from controller import Controller
 from keylistener import KeyListener
 from map import Map
-from player import Player
-from screen import Screen
-from controller import Controller
 from option import Option
+from player import Player
 from save import Save
+from screen import Screen
 
 
 class Game:
