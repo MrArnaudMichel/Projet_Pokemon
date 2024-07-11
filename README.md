@@ -23,7 +23,7 @@ To install this project, you will need to download the repository. You will also
 - pygame (pygame-ce for Python 3.11)
 - pytmx
 - pyscroll
----- Theoretically installed by default ----
+_Theoretically installed by default_
 - datetime
 - time
 - pathlib
