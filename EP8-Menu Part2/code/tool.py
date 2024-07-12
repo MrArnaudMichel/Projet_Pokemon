@@ -21,3 +21,7 @@ class Tool:
         if bold:
             font.set_bold(True)
         return font.render(text, True, color)
+
+    @staticmethod
+    def add_text_to_surface(surface, text, x, y):
+        surface.blit(text, (x, y))

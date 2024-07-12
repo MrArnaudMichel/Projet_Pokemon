@@ -14,6 +14,9 @@ from sql import SQL
 from tool import Tool
 
 
+
+
+
 class Map:
     def __init__(self, screen: Screen, controller: Controller):
         self.controller = controller
@@ -42,6 +45,8 @@ class Map:
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.group = pyscroll.PyscrollGroup(map_layer=self.map_layer, default_layer=7)
+        self.animation_change_map = 0
+        self.animation_change_map_active = False
 
         if switch.name.split("_")[0] == "map":
             self.map_layer.zoom = 3
@@ -125,20 +130,16 @@ class Map:
             self.animation_change_map += 5
         elif self.animation_change_map < 1024:
             surface = self.get_surface_change_map(255)
-            self.add_text_to_surface(surface, self.map_name_text,
+            Tool.add_text_to_surface(surface, self.map_name_text,
                                      surface.get_width() // 2 - self.map_name_text.get_width() // 2, 4)
             self.screen.display.blit(surface, (self.screen.display.get_width() - 255, 600))
             self.animation_change_map += 2
         elif self.animation_change_map < 1279:
             surface = self.get_surface_change_map(1279 - self.animation_change_map)
-            self.add_text_to_surface(surface, self.map_name_text,
+            Tool.add_text_to_surface(surface, self.map_name_text,
                                      surface.get_width() // 2 - self.map_name_text.get_width() // 2, 4)
             self.screen.display.blit(surface, (self.screen.display.get_width() - 255, 600))
             self.animation_change_map += 5
         else:
             self.animation_change_map_active = False
             self.animation_change_map = 0
-
-    def add_text_to_surface(self, surface, map_name_text, param, param1):
-        surface.blit(map_name_text, (param, param1))
-        pass
