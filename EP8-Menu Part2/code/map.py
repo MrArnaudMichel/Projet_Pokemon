@@ -125,16 +125,20 @@ class Map:
             self.animation_change_map += 5
         elif self.animation_change_map < 1024:
             surface = self.get_surface_change_map(255)
-            surface.blit(self.map_name_text, (surface.get_width() // 2 - self.map_name_text.get_width() // 2, 4))
+            self.add_text_to_surface(surface, self.map_name_text,
+                                     surface.get_width() // 2 - self.map_name_text.get_width() // 2, 4)
             self.screen.display.blit(surface, (self.screen.display.get_width() - 255, 600))
-            self.animation_change_map += 5
+            self.animation_change_map += 2
         elif self.animation_change_map < 1279:
             surface = self.get_surface_change_map(1279 - self.animation_change_map)
-            surface.blit(self.map_name_text, (surface.get_width() // 2 - self.map_name_text.get_width() // 2, 4))
+            self.add_text_to_surface(surface, self.map_name_text,
+                                     surface.get_width() // 2 - self.map_name_text.get_width() // 2, 4)
             self.screen.display.blit(surface, (self.screen.display.get_width() - 255, 600))
             self.animation_change_map += 5
         else:
             self.animation_change_map_active = False
             self.animation_change_map = 0
 
-
+    def add_text_to_surface(self, surface, map_name_text, param, param1):
+        surface.blit(map_name_text, (param, param1))
+        pass
