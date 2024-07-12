@@ -10,6 +10,8 @@ from controller import Controller
 from player import Player
 from screen import Screen
 from switch import Switch
+from sql import SQL
+from tool import Tool
 
 
 class Map:
@@ -23,8 +25,15 @@ class Map:
         self.player: Player | None = None
         self.switchs: list[Switch] | None = None
         self.collisions: list[pygame.Rect] | None = None
+        self.sql: SQL = SQL()
 
         self.current_map: Switch = Switch("switch", "map_0", pygame.Rect(0, 0, 0, 0), 0)
+        self.map_name: str | None = self.sql.get_name_map(self.current_map.name)
+        self.map_name_text = None
+
+        self.image_change_map = pygame.image.load("../../assets/interfaces/maps/frame_map.png").convert_alpha()
+        self.animation_change_map = 0
+        self.animation_change_map_active = False
 
         self.switch_map(self.current_map)
 
@@ -36,8 +45,9 @@ class Map:
 
         if switch.name.split("_")[0] == "map":
             self.map_layer.zoom = 3
+            self.set_draw_change_map()
         else:
-            self.map_layer.zoom = 3.75
+            self.map_layer.zoom = 4
 
         self.switchs = []
         self.collisions = []
@@ -80,6 +90,9 @@ class Map:
         self.group.center(self.player.rect.center)
         self.group.draw(self.screen.get_display())
 
+        if self.animation_change_map_active:
+            self.draw_change_map()
+
     def pose_player(self, switch: Switch) -> None:
         position = self.tmx_data.get_object_by_name("spawn " + self.current_map.name + " " + str(switch.port))
         self.player.position = pygame.math.Vector2(position.x, position.y)
@@ -92,3 +105,36 @@ class Map:
         for i, layer in enumerate(self.tmx_data.visible_layers):
             with open(f"../../assets/saves/{path}/maps/{self.current_map.name}/layer{i}", "w") as file:
                 json.dump(layer.data, file)
+
+    def set_draw_change_map(self):
+        if not self.animation_change_map_active:
+            self.animation_change_map_active = True
+            self.animation_change_map = 0
+            self.map_name_text = Tool().create_text(self.map_name, 30, (255, 255, 255))
+
+    def get_surface_change_map(self, alpha: int = 0):
+        surface_change_map = pygame.Surface((215, 53), pygame.SRCALPHA).convert_alpha()
+        surface_change_map.blit(self.image_change_map, (0, 0))
+        surface_change_map.set_alpha(alpha)
+        return surface_change_map
+
+    def draw_change_map(self):
+        if self.animation_change_map < 255:
+            surface = self.get_surface_change_map(self.animation_change_map).convert_alpha()
+            self.screen.display.blit(surface, (self.screen.display.get_width() - self.animation_change_map, 600))
+            self.animation_change_map += 5
+        elif self.animation_change_map < 1024:
+            surface = self.get_surface_change_map(255)
+            surface.blit(self.map_name_text, (surface.get_width() // 2 - self.map_name_text.get_width() // 2, 4))
+            self.screen.display.blit(surface, (self.screen.display.get_width() - 255, 600))
+            self.animation_change_map += 5
+        elif self.animation_change_map < 1279:
+            surface = self.get_surface_change_map(1279 - self.animation_change_map)
+            surface.blit(self.map_name_text, (surface.get_width() // 2 - self.map_name_text.get_width() // 2, 4))
+            self.screen.display.blit(surface, (self.screen.display.get_width() - 255, 600))
+            self.animation_change_map += 5
+        else:
+            self.animation_change_map_active = False
+            self.animation_change_map = 0
+
+

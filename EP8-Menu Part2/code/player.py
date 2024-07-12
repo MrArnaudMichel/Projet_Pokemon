@@ -99,7 +99,7 @@ class Player(Entity):
 
     def switch_bike(self, deactive=False):
         if self.speed == 1 and not deactive:
-            self.speed = 2
+            self.speed = 4
             self.all_images = self.get_all_images(self.spritesheet_bike)
         else:
             self.speed = 1

@@ -24,3 +24,9 @@ class SQL:
         print(query)
         self.cursor.execute(query)
         return self.cursor.fetchall()
+
+    def get_name_map(self, map_id: str) -> str:
+        try:
+            return self.select("map_name", ["name"], f"id = '{map_id}'")[0][0]
+        except IndexError:
+            return "error"

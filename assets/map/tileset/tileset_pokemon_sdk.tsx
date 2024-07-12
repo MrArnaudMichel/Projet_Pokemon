@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.8" tiledversion="1.8.2" name="tileset_pokemon_sdk" tilewidth="16" tileheight="16" tilecount="4256" columns="8">
+<tileset version="1.10" tiledversion="1.10.1" name="tileset_pokemon_sdk" tilewidth="16" tileheight="16" tilecount="4256" columns="8">
  <image source="tileset_pokemon_sdk.png" width="128" height="8512"/>
  <tile id="0" probability="0.97"/>
  <tile id="1" probability="0.01"/>
@@ -263,6 +263,54 @@
    <wangtile tileid="268" wangid="0,1,0,0,0,0,0,0"/>
    <wangtile tileid="269" wangid="0,1,0,0,0,0,0,1"/>
    <wangtile tileid="270" wangid="0,0,0,0,0,0,0,1"/>
+  </wangset>
+  <wangset name="mountain_dark_grass" type="corner" tile="-1">
+   <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangtile tileid="656" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="657" wangid="0,0,0,1,0,1,0,0"/>
+   <wangtile tileid="658" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="664" wangid="0,1,0,1,0,0,0,0"/>
+   <wangtile tileid="665" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="666" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="672" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="673" wangid="0,1,0,0,0,0,0,1"/>
+   <wangtile tileid="674" wangid="0,0,0,0,0,0,0,1"/>
+   <wangtile tileid="683" wangid="0,1,0,0,0,1,0,1"/>
+   <wangtile tileid="684" wangid="0,1,0,1,0,0,0,1"/>
+   <wangtile tileid="691" wangid="0,1,0,1,0,1,0,0"/>
+   <wangtile tileid="692" wangid="0,0,0,1,0,1,0,1"/>
+  </wangset>
+  <wangset name="mountain_light_grass" type="corner" tile="-1">
+   <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangtile tileid="704" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="705" wangid="0,0,0,1,0,1,0,0"/>
+   <wangtile tileid="706" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="712" wangid="0,1,0,1,0,0,0,0"/>
+   <wangtile tileid="713" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="714" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="715" wangid="0,1,0,0,0,1,0,1"/>
+   <wangtile tileid="716" wangid="0,1,0,1,0,0,0,1"/>
+   <wangtile tileid="720" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="721" wangid="0,1,0,0,0,0,0,1"/>
+   <wangtile tileid="722" wangid="0,0,0,0,0,0,0,1"/>
+   <wangtile tileid="723" wangid="0,1,0,1,0,1,0,0"/>
+   <wangtile tileid="724" wangid="0,0,0,1,0,1,0,1"/>
+  </wangset>
+  <wangset name="mountain_light" type="corner" tile="-1">
+   <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangtile tileid="680" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="681" wangid="0,0,0,1,0,1,0,0"/>
+   <wangtile tileid="682" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="688" wangid="0,1,0,1,0,0,0,0"/>
+   <wangtile tileid="689" wangid="0,1,0,1,0,1,0,1"/>
+   <wangtile tileid="690" wangid="0,0,0,0,0,1,0,1"/>
+   <wangtile tileid="696" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="697" wangid="0,1,0,0,0,0,0,1"/>
+   <wangtile tileid="698" wangid="0,0,0,0,0,0,0,1"/>
+   <wangtile tileid="699" wangid="0,1,0,0,0,1,0,1"/>
+   <wangtile tileid="700" wangid="0,1,0,1,0,0,0,1"/>
+   <wangtile tileid="707" wangid="0,1,0,1,0,1,0,0"/>
+   <wangtile tileid="708" wangid="0,0,0,1,0,1,0,1"/>
   </wangset>
  </wangsets>
 </tileset>
