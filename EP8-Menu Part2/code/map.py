@@ -31,7 +31,7 @@ class Map:
         self.sql: SQL = SQL()
 
         self.current_map: Switch = Switch("switch", "map_0", pygame.Rect(0, 0, 0, 0), 0)
-        self.map_name: str | None = self.sql.get_name_map(self.current_map.name)
+        self.map_name: str | None = None
         self.map_name_text = None
 
         self.image_change_map = pygame.image.load("../../assets/interfaces/maps/frame_map.png").convert_alpha()
@@ -50,7 +50,7 @@ class Map:
 
         if switch.name.split("_")[0] == "map":
             self.map_layer.zoom = 3
-            self.set_draw_change_map()
+            self.set_draw_change_map(switch.name)
         else:
             self.map_layer.zoom = 4
 
@@ -111,8 +111,9 @@ class Map:
             with open(f"../../assets/saves/{path}/maps/{self.current_map.name}/layer{i}", "w") as file:
                 json.dump(layer.data, file)
 
-    def set_draw_change_map(self):
+    def set_draw_change_map(self, map_name: str):
         if not self.animation_change_map_active:
+            self.map_name = self.sql.get_name_map(map_name)
             self.animation_change_map_active = True
             self.animation_change_map = 0
             self.map_name_text = Tool().create_text(self.map_name, 30, (255, 255, 255))
