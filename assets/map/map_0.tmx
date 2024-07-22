@@ -646,7 +646,7 @@
 </data>
   </layer>
  </group>
- <group id="21" name="Object">
+ <group id="21" name="Object" visible="0">
   <objectgroup id="29" name="collisions">
    <object id="485" name="collision" type="collision" x="448" y="272" width="48" height="16"/>
    <object id="486" name="collision" type="collision" x="448" y="208" width="16" height="64"/>

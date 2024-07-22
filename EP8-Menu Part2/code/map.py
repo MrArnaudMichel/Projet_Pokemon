@@ -9,12 +9,9 @@ import pytmx
 from controller import Controller
 from player import Player
 from screen import Screen
-from switch import Switch
 from sql import SQL
+from switch import Switch
 from tool import Tool
-
-
-
 
 
 class Map:
