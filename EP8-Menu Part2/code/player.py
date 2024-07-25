@@ -27,6 +27,7 @@ class Player(Entity):
         self.spritesheet_bike: pygame.image = pygame.image.load("../../assets/sprite/hero_01_red_m_cycle_roll.png")
 
         self.menu_option: bool = False
+        self.can_move: bool = True
 
         self.switchs: list[Switch] | None = None
         self.collisions: list[pygame.Rect] | None = None
@@ -35,7 +36,8 @@ class Player(Entity):
     def update(self) -> None:
         self.update_ingame_time()
         self.check_input()
-        self.check_move()
+        if self.can_move:
+            self.check_move()
         super().update()
 
     def check_move(self) -> None:

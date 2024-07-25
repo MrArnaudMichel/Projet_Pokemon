@@ -27,6 +27,6 @@ class SQL:
 
     def get_name_map(self, map_id: str) -> str:
         try:
-            return self.select("map_name", ["name"], f"id = '{map_id}'")[0][0]
+            return self.select("map_name", ["fr"], f"id = '{map_id}'")[0][0]
         except IndexError:
             return "error"
