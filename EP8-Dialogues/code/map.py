@@ -41,7 +41,7 @@ class Map:
         self.tmx_data = pytmx.load_pygame(f"../../assets/map/{switch.name}.tmx")
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
-        self.group = pyscroll.PyscrollGroup(map_layer=self.map_layer, default_layer=7)
+        self.group = pyscroll.PyscrollGroup(map_layer=self.map_layer, default_layer=9)
         self.animation_change_map = 0
         self.animation_change_map_active = False
 

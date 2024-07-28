@@ -1,13 +1,13 @@
 import pygame
 
 from controller import Controller
-from dialogue import Dialogue
 from keylistener import KeyListener
 from map import Map
 from option import Option
 from player import Player
 from save import Save
 from screen import Screen
+from dialogue import Dialogue
 
 
 class Game:
@@ -21,12 +21,21 @@ class Game:
         self.map.add_player(self.player)
         self.save = Save("save_0", self.map)
         self.option = Option(self.screen, self.controller, self.map, "fr", self.save, self.keylistener)
+        self.dialogue: Dialogue = Dialogue(self.player, self.screen)
 
     def run(self) -> None:
         while self.running:
             self.handle_input()
             if not self.player.menu_option:
                 self.map.update()
+                if pygame.K_e in self.keylistener.keys and not self.dialogue.active:
+                    self.dialogue.load_data(1001, 0)
+                    self.keylistener.remove_key(pygame.K_e)
+                if self.dialogue.active:
+                    self.dialogue.update()
+                    if pygame.K_e in self.keylistener.keys:
+                        self.dialogue.action()
+                        self.keylistener.remove_key(pygame.K_e)
             else:
                 self.option.update()
             self.screen.update()

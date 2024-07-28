@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="105" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="30" nextobjectid="677">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="105" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="30" nextobjectid="679">
  <tileset firstgid="1" source="tileset/tileset_pokemon_sdk.tsx"/>
  <tileset firstgid="4257" source="tileset/tileset4g.tsx"/>
  <group id="13" name="layer0">
@@ -646,8 +646,8 @@
 </data>
   </layer>
  </group>
- <group id="21" name="Object" visible="0">
-  <objectgroup id="29" name="collisions">
+ <group id="21" name="Object">
+  <objectgroup id="29" name="collisions" visible="0">
    <object id="485" name="collision" type="collision" x="448" y="272" width="48" height="16"/>
    <object id="486" name="collision" type="collision" x="448" y="208" width="16" height="64"/>
    <object id="490" name="collision" type="collision" x="464" y="208" width="128" height="16"/>
@@ -819,9 +819,13 @@
    <object id="673" name="collision" x="992" y="448" width="16" height="16"/>
    <object id="674" name="collision" x="1024" y="448" width="32" height="16"/>
   </objectgroup>
-  <objectgroup id="22" name="interface" visible="0">
+  <objectgroup id="22" name="interface">
    <object id="311" name="switch house_0 0" x="512" y="256" width="16" height="16"/>
    <object id="312" name="spawn house_0 0" x="512" y="272">
+    <point/>
+   </object>
+   <object id="677" name="switch map_1 0" x="736" y="144" width="16" height="16"/>
+   <object id="678" name="spawn map_1 0" x="736" y="160">
     <point/>
    </object>
   </objectgroup>
