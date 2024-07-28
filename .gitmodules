@@ -1,0 +1,3 @@
+[submodule "assets/maps"]
+	path = assets/maps
+	url = git@github.com:MrArnaudMichel/map_project_pokemon.git

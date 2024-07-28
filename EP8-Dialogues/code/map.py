@@ -9,12 +9,9 @@ import pytmx
 from controller import Controller
 from player import Player
 from screen import Screen
-from switch import Switch
 from sql import SQL
+from switch import Switch
 from tool import Tool
-
-
-
 
 
 class Map:
@@ -31,7 +28,7 @@ class Map:
         self.sql: SQL = SQL()
 
         self.current_map: Switch = Switch("switch", "map_0", pygame.Rect(0, 0, 0, 0), 0)
-        self.map_name: str | None = self.sql.get_name_map(self.current_map.name)
+        self.map_name: str | None = None
         self.map_name_text = None
 
         self.image_change_map = pygame.image.load("../../assets/interfaces/maps/frame_map.png").convert_alpha()
@@ -44,13 +41,13 @@ class Map:
         self.tmx_data = pytmx.load_pygame(f"../../assets/map/{switch.name}.tmx")
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
-        self.group = pyscroll.PyscrollGroup(map_layer=self.map_layer, default_layer=7)
+        self.group = pyscroll.PyscrollGroup(map_layer=self.map_layer, default_layer=9)
         self.animation_change_map = 0
         self.animation_change_map_active = False
 
         if switch.name.split("_")[0] == "map":
             self.map_layer.zoom = 3
-            self.set_draw_change_map()
+            self.set_draw_change_map(switch.name)
         else:
             self.map_layer.zoom = 4
 
@@ -111,8 +108,9 @@ class Map:
             with open(f"../../assets/saves/{path}/maps/{self.current_map.name}/layer{i}", "w") as file:
                 json.dump(layer.data, file)
 
-    def set_draw_change_map(self):
+    def set_draw_change_map(self, map_name: str):
         if not self.animation_change_map_active:
+            self.map_name = self.sql.get_name_map(map_name)
             self.animation_change_map_active = True
             self.animation_change_map = 0
             self.map_name_text = Tool().create_text(self.map_name, 30, (255, 255, 255))

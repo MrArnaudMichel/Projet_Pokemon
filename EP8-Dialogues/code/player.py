@@ -24,6 +24,8 @@ class Player(Entity):
         self.pokedollars = 0
         self.ingame_time: datetime.timedelta = ingame_time
 
+        self.can_move = True
+
         self.spritesheet_bike: pygame.image = pygame.image.load("../../assets/sprite/hero_01_red_m_cycle_roll.png")
 
         self.menu_option: bool = False
@@ -34,8 +36,9 @@ class Player(Entity):
 
     def update(self) -> None:
         self.update_ingame_time()
+        if self.can_move:
+            self.check_move()
         self.check_input()
-        self.check_move()
         super().update()
 
     def check_move(self) -> None:
