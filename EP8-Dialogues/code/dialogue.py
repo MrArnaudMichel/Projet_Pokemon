@@ -32,7 +32,7 @@ class Dialogue:
         self.dialogue_data = DialogueData(number, id)
         self.active = True
 
-        self.dialogue_screen = DialogueScreen(self.screen, dialogue_data=self.dialogue_data)
+        self.dialogue_screen = DialogueScreen(self.screen, dialogue_data=self.dialogue_data, speakers=self.speakers)
 
     def update(self):
         self.dialogue_screen.update()
@@ -106,10 +106,11 @@ class DialogueData:
 
 
 class DialogueScreen:
-    def __init__(self, screen: Screen, dialogue_data: DialogueData, speed: int = 0.5) -> None:
+    def __init__(self, screen: Screen, dialogue_data: DialogueData, speed: int = 0.5, speakers: list[str] = []):
         self.screen: Screen = screen
         self.dialogue_data: DialogueData = dialogue_data
         self.speed: int = speed
+        self.speakers: list[str] = speakers
 
         self.font: pygame.font.Font = pygame.font.Font("../../assets/fonts/OakSans-Regular.ttf", 22)
         self.surface: pygame.Surface = pygame.Surface((1280, 131), pygame.SRCALPHA)
@@ -117,6 +118,10 @@ class DialogueScreen:
         self.background_name = pygame.image.load("../../assets/interfaces/dialogues/name_box_0.png").convert_alpha()
 
         self.speaker_name = self.font.render(self.dialogue_data.speaker_name, True, (255, 255, 255))
+        self.speaker_image = pygame.image.load(
+            f"../../assets/interfaces/characters/battlers/{self.dialogue_data.speaker_image[1]}.png").convert_alpha()
+        self.player_image = pygame.image.load(
+            f"../../assets/interfaces/characters/battlers/heros_swan_big.png").convert_alpha()
 
         self.time_wait = time.time()
         self.lines = self.dialogue_data.text.split("\n")
@@ -126,6 +131,8 @@ class DialogueScreen:
 
         self.y_offset = 0
         self.line_waits = {}
+
+        self.speaker_offset = 0
 
         self.finished: bool = False
 
@@ -164,4 +171,25 @@ class DialogueScreen:
 
         if self.lines_offset[-1] == len(self.lines[-1]):
             self.finished = True
+
+        if self.dialogue_data.speaker_name != "error":
+            if self.dialogue_data.speaker_name == "heros":
+                self.screen.display.blit(self.player_image, (-128, 78))
+                self.screen.display.blit(self.background_name, (-8, 480))
+                self.screen.display.blit(self.speaker_name, (
+                    -8 + self.background_name.get_width() // 2 - self.speaker_name.get_width() // 2, 488))
+            else:
+                if self.dialogue_data.speaker_name not in self.speakers:
+                    if self.speaker_offset > 128:
+                        self.speakers.append(self.dialogue_data.speaker_name)
+                    else:
+                        self.speaker_offset += 1
+
+                self.screen.display.blit(self.speaker_image, (1280 - self.speaker_image.get_width() + 128 - self.speaker_offset,
+                                                              78))
+                self.screen.display.blit(self.background_name,
+                                         (1280 - 124 - self.background_name.get_width() // 2, 480))
+                self.screen.display.blit(self.speaker_name, (
+                    1280 - 124 - self.background_name.get_width() // 2 + self.background_name.get_width() // 2 - self.speaker_name.get_width() // 2,
+                    488))
         self.screen.display.blit(self.surface, (0, 589))
