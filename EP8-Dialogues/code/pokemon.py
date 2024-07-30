@@ -152,16 +152,16 @@ class Pokemon:
                     list_move.append(move)
             except:
                 pass
-        min = 2
-        if len(list_move) < min:
-            min = len(list_move)
-        max = 4
+        minimum = 2
+        if len(list_move) < minimum:
+            minimum = len(list_move)
+        maximum = 4
         if len(list_move) < 4:
-            max = len(list_move)
-        for i in range(random.randint(min, max)):
-            chosed = random.choice(list_move)
-            list_move.remove(chosed)
-            list_attack.append(Move.createMove(chosed['move']))
+            maximum = len(list_move)
+        for i in range(random.randint(minimum, maximum)):
+            chosen = random.choice(list_move)
+            list_move.remove(chosen)
+            list_attack.append(Move.createMove(chosen['move']))
         return list_attack
 
     def get_ev(self):
