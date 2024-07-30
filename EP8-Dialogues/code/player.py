@@ -11,8 +11,20 @@ from switch import Switch
 
 
 class Player(Entity):
+    """
+    Player class to manage the player
+    """
     def __init__(self, screen: Screen, controller: Controller, x: int, y: int, keylistener: KeyListener,
                  ingame_time: datetime.timedelta = datetime.timedelta(seconds=0)) -> None:
+        """
+        Initialize the player
+        :param screen:
+        :param controller:
+        :param x:
+        :param y:
+        :param keylistener:
+        :param ingame_time:
+        """
         super().__init__(screen, x, y)
         self.keylistener = keylistener
         self.name = "Lucas"
@@ -35,6 +47,10 @@ class Player(Entity):
         self.change_map: Switch | None = None
 
     def update(self) -> None:
+        """
+        Update the player
+        :return:
+        """
         self.update_ingame_time()
         if self.can_move:
             self.check_move()
@@ -42,6 +58,10 @@ class Player(Entity):
         super().update()
 
     def check_move(self) -> None:
+        """
+        Check the move of the player
+        :return:
+        """
         if self.animation_walk is False:
             temp_hitbox = self.hitbox.copy()
             if self.keylistener.key_pressed(self.controller.get_key("left")):
@@ -74,9 +94,19 @@ class Player(Entity):
                     self.direction = "down"
 
     def add_switchs(self, switchs: list[Switch]):
+        """
+        Add the switchs to the player
+        :param switchs:
+        :return:
+        """
         self.switchs = switchs
 
     def check_collisions_switchs(self, temp_hitbox):
+        """
+        Check the collisions with the switchs
+        :param temp_hitbox:
+        :return:
+        """
         if self.switchs:
             for switch in self.switchs:
                 if switch.check_collision(temp_hitbox):
@@ -84,15 +114,29 @@ class Player(Entity):
         return None
 
     def add_collisions(self, collisions):
+        """
+        Add the collisions to the player
+        :param collisions:
+        :return:
+        """
         self.collisions = collisions
 
     def check_collisions(self, temp_hitbox: pygame.Rect):
+        """
+        Check the collisions with the map
+        :param temp_hitbox:
+        :return:
+        """
         for collision in self.collisions:
             if temp_hitbox.colliderect(collision):
                 return True
         return False
 
     def check_input(self):
+        """
+        Check the input of the player
+        :return:
+        """
         if self.keylistener.key_pressed(self.controller.get_key("bike")):
             self.switch_bike()
         if self.keylistener.key_pressed(self.controller.get_key("quit")):
@@ -101,6 +145,11 @@ class Player(Entity):
             return
 
     def switch_bike(self, deactive=False):
+        """
+        Switch the bike
+        :param deactive:
+        :return:
+        """
         if self.speed == 1 and not deactive:
             self.speed = 4
             self.all_images = self.get_all_images(self.spritesheet_bike)
@@ -110,5 +159,9 @@ class Player(Entity):
         self.keylistener.remove_key(pygame.K_b)
 
     def update_ingame_time(self):
+        """
+        Update the ingame time
+        :return:
+        """
         if self.screen.get_delta_time() > 0:
             self.ingame_time += datetime.timedelta(seconds=self.screen.get_delta_time() / 1000)

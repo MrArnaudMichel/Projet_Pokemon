@@ -11,7 +11,13 @@ from dialogue import Dialogue
 
 
 class Game:
+    """
+    Game class to manage the game
+    """
     def __init__(self) -> None:
+        """
+        Initialize the game
+        """
         self.running: bool = True
         self.screen: Screen = Screen()
         self.controller = Controller()
@@ -24,6 +30,10 @@ class Game:
         self.dialogue: Dialogue = Dialogue(self.player, self.screen)
 
     def run(self) -> None:
+        """
+        Run the game
+        :return:
+        """
         while self.running:
             self.handle_input()
             if not self.player.menu_option:
@@ -41,6 +51,10 @@ class Game:
             self.screen.update()
 
     def handle_input(self) -> None:
+        """
+        Handle the inputs
+        :return:
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

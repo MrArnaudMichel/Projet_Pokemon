@@ -8,12 +8,24 @@ from sql import SQL
 
 
 class Save:
+    """
+    Save class to manage the save
+    """
     def __init__(self, path: str, map: Map):
+        """
+        Initialize the save
+        :param path:
+        :param map:
+        """
         self.path = path
         self.map = map
         self.sql = SQL()
 
     def save(self):
+        """
+        Save the game
+        :return:
+        """
         self.map.save_in_file(self.path)
         position = self.map.player.position
         player_info = {
@@ -43,6 +55,10 @@ class Save:
             file.write(self.dump(data))
 
     def load(self):
+        """
+        Load the game from the save
+        :return:
+        """
         if pathlib.Path(f"../../assets/{self.path}/data").exists():
             with open(f"../../assets/{self.path}/data", "r") as file:
                 data = json.load(file)
@@ -58,4 +74,9 @@ class Save:
             self.map.player.pokedollars = data["player"]["pokedollars"]
 
     def dump(self, element: dict):
+        """
+        Dump the element in json format
+        :param element:
+        :return:
+        """
         return json.dumps(element, indent=4)

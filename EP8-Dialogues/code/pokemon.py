@@ -6,7 +6,15 @@ from move import Move
 
 
 class Pokemon:
+    """
+    Pokemon class to manage the pokemons
+    """
     def __init__(self, data, level: int):
+        """
+        Initialize the pokemon
+        :param data:
+        :param level:
+        """
         self.klass = data['klass']
         self.id = data['id']
         self.dbSymbol = data['dbSymbol']
@@ -67,6 +75,10 @@ class Pokemon:
         self.evolution = None
 
     def get_types(self):
+        """
+        Get the types of the pokemon
+        :return:
+        """
         type1 = self.forms[0]['type1']
         type2 = self.forms[0]['type2']
         if type2 == "__undef__":
@@ -74,6 +86,10 @@ class Pokemon:
         return [type1, type2]
 
     def get_base_stats(self):
+        """
+        Get the base stats of the pokemon
+        :return:
+        """
         return {
             "hp": self.forms[0]['baseHp'],
             "atk": self.forms[0]['baseAtk'],
@@ -84,6 +100,11 @@ class Pokemon:
         }
 
     def update_stats(self, stat):
+        """
+        Update the stats of the pokemon
+        :param stat:
+        :return:
+        """
         base_stat = self.get_base_stats()[stat]
         iv = self.ivs[stat]
         ev = self.get_ev()[stat]
@@ -94,6 +115,10 @@ class Pokemon:
         return math.floor((((2 * base_stat + iv + math.floor(ev / 4)) * level / 100) + 5) * nature)
 
     def xp_to_next_level(self):
+        """
+        Get the experience to the next level
+        :return:
+        """
         if self.level == 100:
             return 0
         if self.experienceType == 1:
@@ -115,6 +140,10 @@ class Pokemon:
                 return math.floor((self.level ** 3) * (160 - self.level) / 100)
 
     def set_moves(self):
+        """
+        Set the moves of the pokemon
+        :return:
+        """
         list_move: list[dict] = []
         list_attack: list[Move] = []
         for move in self.moveSet:
@@ -136,6 +165,10 @@ class Pokemon:
         return list_attack
 
     def get_ev(self):
+        """
+        Get the effort values of the pokemon
+        :return:
+        """
         return {
             "hp": self.forms[0]["evHp"],
             "atk": self.forms[0]["evAtk"],
@@ -147,4 +180,10 @@ class Pokemon:
 
     @staticmethod
     def create_pokemon(name: str, level: int) -> "Pokemon":
+        """
+        Create a pokemon from the name
+        :param name:
+        :param level:
+        :return:
+        """
         return Pokemon(json.load(open(f"../../assets/json/pokemon/{name.lower()}.json")), level)
