@@ -7,11 +7,11 @@ from move import Move
 
 class Pokemon:
     """
-    Pokemon class to manage the pokemons
+    Pokémon class to manage the Pokémons
     """
-    def __init__(self, data, level: int):
+    def __init__(self, data, level: int) -> None:
         """
-        Initialize the pokemon
+        Initialize the Pokémons
         :param data:
         :param level:
         """
@@ -76,7 +76,7 @@ class Pokemon:
 
     def get_types(self):
         """
-        Get the types of the pokemon
+        Get the types of the Pokémon
         :return:
         """
         type1 = self.forms[0]['type1']
@@ -87,7 +87,7 @@ class Pokemon:
 
     def get_base_stats(self):
         """
-        Get the base stats of the pokemon
+        Get the base stats of the Pokémon
         :return:
         """
         return {
@@ -101,7 +101,7 @@ class Pokemon:
 
     def update_stats(self, stat):
         """
-        Update the stats of the pokemon
+        Update the stats of the Pokémon
         :param stat:
         :return:
         """
@@ -141,7 +141,7 @@ class Pokemon:
 
     def set_moves(self):
         """
-        Set the moves of the pokemon
+        Set the moves of the Pokémon
         :return:
         """
         list_move: list[dict] = []
@@ -166,7 +166,7 @@ class Pokemon:
 
     def get_ev(self):
         """
-        Get the effort values of the pokemon
+        Get the effort values of the Pokémon
         :return:
         """
         return {
@@ -181,7 +181,7 @@ class Pokemon:
     @staticmethod
     def create_pokemon(name: str, level: int) -> "Pokemon":
         """
-        Create a pokemon from the name
+        Create a Pokémon from the name
         :param name:
         :param level:
         :return:

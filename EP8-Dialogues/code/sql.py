@@ -6,17 +6,17 @@ class SQL:
         """
         Initialize the SQL connection
         """
-        self.connection = sqlite3.connect("../../assets/base.db")
-        self.cursor = self.connection.cursor()
+        self.connection: sqlite3.Connection = sqlite3.connect("../../assets/base.db")
+        self.cursor: sqlite3.Cursor = self.connection.cursor()
 
-    def get_connection(self):
+    def get_connection(self) -> sqlite3.Connection:
         """
         Get the connection
         :return:
         """
         return self.connection
 
-    def get_cursor(self):
+    def get_cursor(self) -> sqlite3.Cursor:
         """
         Get the cursor
         :return:
@@ -24,7 +24,7 @@ class SQL:
         return self.cursor
 
     def select(self, table: str, columns: list[str], where: str = None, order: str = None, limit: int = None) -> list[
-        tuple]:
+        tuple] or None:
         """
         Select data from the database
         :param table:

@@ -25,8 +25,8 @@ class Game:
         self.keylistener: KeyListener = KeyListener()
         self.player: Player = Player(self.screen, self.controller, 512, 288, self.keylistener)
         self.map.add_player(self.player)
-        self.save = Save("save_0", self.map)
-        self.option = Option(self.screen, self.controller, self.map, "fr", self.save, self.keylistener)
+        self.save: Save = Save("save_0", self.map)
+        self.option: Option = Option(self.screen, self.controller, self.map, "fr", self.save, self.keylistener)
         self.dialogue: Dialogue = Dialogue(self.player, self.screen)
 
     def run(self) -> None:

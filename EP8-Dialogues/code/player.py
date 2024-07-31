@@ -26,14 +26,16 @@ class Player(Entity):
         :param ingame_time:
         """
         super().__init__(screen, x, y)
-        self.keylistener = keylistener
-        self.name = "Lucas"
-        self.controller = controller
-        self.pokemons = []
+        self.keylistener: KeyListener = keylistener
+        self.controller: Controller = controller
+        self.pokemons: list[Pokemon] = []
+        self.inventory: None = None
+        self.pokedex: None = None
+
+        self.name: str = "Lucas"
+        self.pokedollars: int = 0
+
         self.pokemons.append(Pokemon.create_pokemon("Bulbasaur", 5))
-        self.inventory = None
-        self.pokedex = None
-        self.pokedollars = 0
         self.ingame_time: datetime.timedelta = ingame_time
 
         self.can_move = True
@@ -93,7 +95,7 @@ class Player(Entity):
                 else:
                     self.direction = "down"
 
-    def add_switchs(self, switchs: list[Switch]):
+    def add_switchs(self, switchs: list[Switch]) -> None:
         """
         Add the switchs to the player
         :param switchs:
@@ -101,7 +103,7 @@ class Player(Entity):
         """
         self.switchs = switchs
 
-    def check_collisions_switchs(self, temp_hitbox):
+    def check_collisions_switchs(self, temp_hitbox) -> None:
         """
         Check the collisions with the switchs
         :param temp_hitbox:
@@ -111,9 +113,9 @@ class Player(Entity):
             for switch in self.switchs:
                 if switch.check_collision(temp_hitbox):
                     self.change_map = switch
-        return None
+        return
 
-    def add_collisions(self, collisions):
+    def add_collisions(self, collisions) -> None:
         """
         Add the collisions to the player
         :param collisions:
@@ -121,7 +123,7 @@ class Player(Entity):
         """
         self.collisions = collisions
 
-    def check_collisions(self, temp_hitbox: pygame.Rect):
+    def check_collisions(self, temp_hitbox: pygame.Rect) -> bool:
         """
         Check the collisions with the map
         :param temp_hitbox:
@@ -132,7 +134,7 @@ class Player(Entity):
                 return True
         return False
 
-    def check_input(self):
+    def check_input(self) -> None:
         """
         Check the input of the player
         :return:
@@ -144,7 +146,7 @@ class Player(Entity):
             self.keylistener.remove_key(self.controller.get_key("quit"))
             return
 
-    def switch_bike(self, deactive=False):
+    def switch_bike(self, deactive=False) -> None:
         """
         Switch the bike
         :param deactive:
@@ -158,7 +160,7 @@ class Player(Entity):
             self.all_images = self.get_all_images(self.spritesheet)
         self.keylistener.remove_key(pygame.K_b)
 
-    def update_ingame_time(self):
+    def update_ingame_time(self) -> None:
         """
         Update the ingame time
         :return:

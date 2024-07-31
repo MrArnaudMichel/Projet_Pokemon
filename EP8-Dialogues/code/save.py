@@ -17,11 +17,11 @@ class Save:
         :param path:
         :param map:
         """
-        self.path = path
-        self.map = map
-        self.sql = SQL()
+        self.path: str = path
+        self.map: Map = map
+        self.sql: SQL = SQL()
 
-    def save(self):
+    def save(self) -> None:
         """
         Save the game
         :return:
@@ -54,7 +54,7 @@ class Save:
         with open(f"../../assets/{self.path}/data", "w") as file:
             file.write(self.dump(data))
 
-    def load(self):
+    def load(self) -> None:
         """
         Load the game from the save
         :return:
@@ -73,7 +73,7 @@ class Save:
             self.map.player.pokedex = data["player"]["pokedex"]
             self.map.player.pokedollars = data["player"]["pokedollars"]
 
-    def dump(self, element: dict):
+    def dump(self, element: dict) -> str:
         """
         Dump the element in json format
         :param element:

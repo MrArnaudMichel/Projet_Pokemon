@@ -15,7 +15,7 @@ class Option:
     Option class to manage the options
     """
     def __init__(self, screen: Screen, controller: Controller, map: Map, language: str, save: Save,
-                 keylistener: KeyListener):
+                 keylistener: KeyListener) -> None:
         """
         Initialize the options
         :param screen:
@@ -32,7 +32,7 @@ class Option:
         self.save: Save = save
         self.sql: SQL = SQL()
         self.player: Player = self.map.player
-        self.keylistener = keylistener
+        self.keylistener: KeyListener = keylistener
 
         self.full_background: pygame.Surface = pygame.surface.Surface(self.screen.get_size())
         self.image_background: pygame.Surface | None = None
@@ -42,7 +42,7 @@ class Option:
         self.background: pygame.Surface = pygame.surface.Surface((self.screen.get_size()[0], 80))
         self.background.fill(self.background_color)
 
-    def update(self):
+    def update(self) -> None:
         """
         Update the options
         :return:
@@ -53,7 +53,7 @@ class Option:
         self.draw()
         self.check_end()
 
-    def initialize(self):
+    def initialize(self) -> None:
         """
         Initialize the options
         :return:
@@ -61,7 +61,7 @@ class Option:
         self.image_background = self.screen.image_screen()
         self.image_background = Tool.blur(self.image_background, 2)
 
-    def draw(self):
+    def draw(self) -> None:
         """
         Draw the options
         :return:
@@ -73,7 +73,7 @@ class Option:
 
         self.screen.get_display().blit(self.full_background, (0, 0))
 
-    def check_end(self):
+    def check_end(self) -> None:
         """
         Check if the options is finished
         :return:
