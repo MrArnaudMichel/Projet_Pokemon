@@ -5,7 +5,16 @@ from tool import Tool
 
 
 class Entity(pygame.sprite.Sprite):
+    """
+    Entity class to manage the entities
+    """
     def __init__(self, screen: Screen, x: int, y: int):
+        """
+        Initialize the entity
+        :param screen:
+        :param x:
+        :param y:
+        """
         super().__init__()
         self.screen: Screen = screen
         self.spritesheet: pygame.image = pygame.image.load("../../assets/sprite/hero_01_red_m_walk.png")
@@ -28,6 +37,10 @@ class Entity(pygame.sprite.Sprite):
         self.speed: int = 1
 
     def update(self) -> None:
+        """
+        Update the entity
+        :return:
+        """
         self.animation_sprite()
         self.move()
         self.rect.center = self.position
@@ -35,28 +48,52 @@ class Entity(pygame.sprite.Sprite):
         self.image = self.all_images[self.direction][self.index_image]
 
     def move_left(self) -> None:
+        """
+        Move the entity to the left
+        :return:
+        """
         self.animation_walk = True
         self.direction = "left"
 
     def move_right(self) -> None:
+        """
+        Move the entity to the right
+        :return:
+        """
         self.animation_walk = True
         self.direction = "right"
 
     def move_up(self) -> None:
+        """
+        Move the entity to the up
+        :return:
+        """
         self.animation_walk = True
         self.direction = "up"
 
     def move_down(self) -> None:
+        """
+        Move the entity to the down
+        :return:
+        """
         self.animation_walk = True
         self.direction = "down"
 
     def animation_sprite(self) -> None:
+        """
+        Animate the sprite
+        :return:
+        """
         if int(self.step // 8) + self.image_part >= 4:
             self.image_part = 0
             self.reset_animation = True
         self.index_image = int(self.step // 8) + self.image_part
 
     def move(self) -> None:
+        """
+        Move the entity on the screen
+        :return:
+        """
         if self.animation_walk:
             self.animtion_step_time += self.screen.get_delta_time()
             if self.step < 16 and self.animtion_step_time >= self.action_animation:
@@ -82,6 +119,10 @@ class Entity(pygame.sprite.Sprite):
                         self.image_part = 0
 
     def align_hitbox(self) -> None:
+        """
+        Align the hitbox with map grid (16x16)
+        :return:
+        """
         self.position.x += 16
         self.rect.center = self.position
         self.hitbox.midbottom = self.rect.midbottom
@@ -93,7 +134,12 @@ class Entity(pygame.sprite.Sprite):
             self.hitbox.midbottom = self.rect.midbottom
         self.position = pygame.math.Vector2(self.rect.center)
 
-    def get_all_images(self, spritesheet) -> dict[str, list[pygame.image]]:
+    def get_all_images(self, spritesheet: pygame.image) -> dict[str, list[pygame.image]]:
+        """
+        Get all images from the spritesheet
+        :param spritesheet:
+        :return:
+        """
         all_images = {
             "down": [],
             "left": [],

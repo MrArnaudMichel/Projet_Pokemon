@@ -11,17 +11,31 @@ from switch import Switch
 
 
 class Player(Entity):
+    """
+    Player class to manage the player
+    """
     def __init__(self, screen: Screen, controller: Controller, x: int, y: int, keylistener: KeyListener,
                  ingame_time: datetime.timedelta = datetime.timedelta(seconds=0)) -> None:
+        """
+        Initialize the player
+        :param screen:
+        :param controller:
+        :param x:
+        :param y:
+        :param keylistener:
+        :param ingame_time:
+        """
         super().__init__(screen, x, y)
-        self.keylistener = keylistener
-        self.name = "Lucas"
-        self.controller = controller
-        self.pokemons = []
+        self.keylistener: KeyListener = keylistener
+        self.controller: Controller = controller
+        self.pokemons: list[Pokemon] = []
+        self.inventory: None = None
+        self.pokedex: None = None
+
+        self.name: str = "Lucas"
+        self.pokedollars: int = 0
+
         self.pokemons.append(Pokemon.create_pokemon("Bulbasaur", 5))
-        self.inventory = None
-        self.pokedex = None
-        self.pokedollars = 0
         self.ingame_time: datetime.timedelta = ingame_time
 
         self.can_move = True
@@ -35,6 +49,10 @@ class Player(Entity):
         self.change_map: Switch | None = None
 
     def update(self) -> None:
+        """
+        Update the player
+        :return:
+        """
         self.update_ingame_time()
         if self.can_move:
             self.check_move()
@@ -42,6 +60,10 @@ class Player(Entity):
         super().update()
 
     def check_move(self) -> None:
+        """
+        Check the move of the player
+        :return:
+        """
         if self.animation_walk is False:
             temp_hitbox = self.hitbox.copy()
             if self.keylistener.key_pressed(self.controller.get_key("left")):
@@ -73,26 +95,50 @@ class Player(Entity):
                 else:
                     self.direction = "down"
 
-    def add_switchs(self, switchs: list[Switch]):
+    def add_switchs(self, switchs: list[Switch]) -> None:
+        """
+        Add the switchs to the player
+        :param switchs:
+        :return:
+        """
         self.switchs = switchs
 
-    def check_collisions_switchs(self, temp_hitbox):
+    def check_collisions_switchs(self, temp_hitbox) -> None:
+        """
+        Check the collisions with the switchs
+        :param temp_hitbox:
+        :return:
+        """
         if self.switchs:
             for switch in self.switchs:
                 if switch.check_collision(temp_hitbox):
                     self.change_map = switch
-        return None
+        return
 
-    def add_collisions(self, collisions):
+    def add_collisions(self, collisions) -> None:
+        """
+        Add the collisions to the player
+        :param collisions:
+        :return:
+        """
         self.collisions = collisions
 
-    def check_collisions(self, temp_hitbox: pygame.Rect):
+    def check_collisions(self, temp_hitbox: pygame.Rect) -> bool:
+        """
+        Check the collisions with the map
+        :param temp_hitbox:
+        :return:
+        """
         for collision in self.collisions:
             if temp_hitbox.colliderect(collision):
                 return True
         return False
 
-    def check_input(self):
+    def check_input(self) -> None:
+        """
+        Check the input of the player
+        :return:
+        """
         if self.keylistener.key_pressed(self.controller.get_key("bike")):
             self.switch_bike()
         if self.keylistener.key_pressed(self.controller.get_key("quit")):
@@ -100,7 +146,12 @@ class Player(Entity):
             self.keylistener.remove_key(self.controller.get_key("quit"))
             return
 
-    def switch_bike(self, deactive=False):
+    def switch_bike(self, deactive=False) -> None:
+        """
+        Switch the bike
+        :param deactive:
+        :return:
+        """
         if self.speed == 1 and not deactive:
             self.speed = 4
             self.all_images = self.get_all_images(self.spritesheet_bike)
@@ -109,6 +160,10 @@ class Player(Entity):
             self.all_images = self.get_all_images(self.spritesheet)
         self.keylistener.remove_key(pygame.K_b)
 
-    def update_ingame_time(self):
+    def update_ingame_time(self) -> None:
+        """
+        Update the ingame time
+        :return:
+        """
         if self.screen.get_delta_time() > 0:
             self.ingame_time += datetime.timedelta(seconds=self.screen.get_delta_time() / 1000)

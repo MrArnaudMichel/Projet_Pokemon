@@ -9,9 +9,17 @@ from screen import Screen
 
 
 class Dialogue:
-    def __init__(self, player: Player, screen: Screen):
-        self.player = player
-        self.screen = screen
+    """
+    Dialogue class to manage the dialogues
+    """
+    def __init__(self, player: Player, screen: Screen) -> None:
+        """
+        Initialize the dialogue
+        :param player:
+        :param screen:
+        """
+        self.player: Player = player
+        self.screen: Screen = screen
 
         self.number: int | None = None
         self.id: int | None = None
@@ -24,7 +32,13 @@ class Dialogue:
         self.dialogue_screen: DialogueScreen | None = None
         self.dialogue_data: DialogueData | None = None
 
-    def load_data(self, number: int, id: int):
+    def load_data(self, number: int, id: int) -> None:
+        """
+        Load the dialogue data
+        :param number:
+        :param id:
+        :return:
+        """
         self.player.can_move = False
         self.number = number
         self.id = id
@@ -32,18 +46,33 @@ class Dialogue:
         self.dialogue_data = DialogueData(number, id)
         self.active = True
 
-        self.dialogue_screen = DialogueScreen(self.screen, dialogue_data=self.dialogue_data)
+        self.dialogue_screen = DialogueScreen(self.screen, dialogue_data=self.dialogue_data, speakers=self.speakers)
 
-    def update(self):
+    def update(self) -> None:
+        """
+        Update the dialogue
+        :return:
+        """
         self.dialogue_screen.update()
 
-    def action(self):
+    def action(self) -> None:
+        """
+        Action to do when the dialogue is finished
+        :return:
+        """
         if self.dialogue_screen.finished:
             self.active = False
             self.player.can_move = True
 
 
 def format_text(text: str, line_length: int = 100, max_lines: int = 10) -> str:
+    """
+    Format the text to fit the dialogue box
+    :param text:
+    :param line_length:
+    :param max_lines:
+    :return:
+    """
     words = text.split()
     formatted_line = []
     current_line = ""
@@ -66,7 +95,10 @@ def format_text(text: str, line_length: int = 100, max_lines: int = 10) -> str:
 
 
 class DialogueData:
-    def __init__(self, number: int, id: int):
+    """
+    Dialogue data class to manage the
+    """
+    def __init__(self, number: int, id: int) -> None:
         self.speaker_name: str = ""
         self.speaker_image: str = ""
         self.text: str = ""
@@ -74,6 +106,12 @@ class DialogueData:
         self.load_data(number, id)
 
     def load_data(self, number: int, id: int):
+        """
+        Load the data from the csv file
+        :param number:
+        :param id:
+        :return:
+        """
         file_path = f"../../assets/dialogues/{number}.csv"
 
         df = pd.read_csv(file_path)
@@ -90,6 +128,11 @@ class DialogueData:
         self.extract_data(value)
 
     def extract_data(self, string: str):
+        """
+        Extract the data from the string
+        :param string:
+        :return:
+        """
         pattern = r':\[name=(.*?);face=(.*?)\]:(.*)'
 
         match = re.match(pattern, string)
@@ -99,37 +142,64 @@ class DialogueData:
             self.speaker_image = match.group(2).strip().split(',')
             self.text = format_text(match.group(3).strip())
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """
+        String representation of the class
+        :return:
+        """
         return (f"Speaker name: {self.speaker_name},\n"
                 f"Speaker image: {self.speaker_image},\n"
                 f"Text: {self.text}")
 
 
 class DialogueScreen:
-    def __init__(self, screen: Screen, dialogue_data: DialogueData, speed: int = 0.5) -> None:
+    """
+    Dialogue screen class to manage the dialogue screen
+    """
+    def __init__(self, screen: Screen, dialogue_data: DialogueData, speed: int = 0.5, speakers=None):
+        """
+        Initialize the dialogue screen
+        :param screen:
+        :param dialogue_data:
+        :param speed:
+        :param speakers:
+        """
+        if speakers is None:
+            speakers = []
         self.screen: Screen = screen
         self.dialogue_data: DialogueData = dialogue_data
         self.speed: int = speed
+        self.speakers: list[str] = speakers
 
         self.font: pygame.font.Font = pygame.font.Font("../../assets/fonts/OakSans-Regular.ttf", 22)
         self.surface: pygame.Surface = pygame.Surface((1280, 131), pygame.SRCALPHA)
-        self.background = pygame.image.load("../../assets/interfaces/dialogues/message_box_0.png").convert_alpha()
-        self.background_name = pygame.image.load("../../assets/interfaces/dialogues/name_box_0.png").convert_alpha()
+        self.background: pygame.Surface = pygame.image.load("../../assets/interfaces/dialogues/message_box_0.png").convert_alpha()
+        self.background_name: pygame.Surface = pygame.image.load("../../assets/interfaces/dialogues/name_box_0.png").convert_alpha()
 
-        self.speaker_name = self.font.render(self.dialogue_data.speaker_name, True, (255, 255, 255))
+        self.speaker_name: pygame.Surface = self.font.render(self.dialogue_data.speaker_name, True, (255, 255, 255))
+        self.speaker_image: pygame.Surface = pygame.image.load(
+            f"../../assets/interfaces/characters/battlers/{self.dialogue_data.speaker_image[1]}.png").convert_alpha()
+        self.player_image: pygame.Surface = pygame.image.load(
+            f"../../assets/interfaces/characters/battlers/heros_swan_big.png").convert_alpha()
 
-        self.time_wait = time.time()
-        self.lines = self.dialogue_data.text.split("\n")
+        self.time_wait: time = time.time()
+        self.lines: list[str] = self.dialogue_data.text.split("\n")
 
-        self.lines_index = 0
-        self.lines_offset = [0 for _ in range(len(self.lines))]
+        self.lines_index: int = 0
+        self.lines_offset: list[int] = [0 for _ in range(len(self.lines))]
 
-        self.y_offset = 0
-        self.line_waits = {}
+        self.y_offset: int = 0
+        self.line_waits: dict[int: int] = {}
+
+        self.speaker_offset: int = 0
 
         self.finished: bool = False
 
-    def update(self):
+    def update(self) -> None:
+        """
+        Update the dialogue screen
+        :return:
+        """
         wait_time = self.speed * (1 / 60)
         self.surface.fill((0, 0, 0, 0))
         self.surface.blit(self.background, (0, 0))
@@ -164,4 +234,25 @@ class DialogueScreen:
 
         if self.lines_offset[-1] == len(self.lines[-1]):
             self.finished = True
+
+        if self.dialogue_data.speaker_name != "error":
+            if self.dialogue_data.speaker_name == "heros":
+                self.screen.display.blit(self.player_image, (-128, 78))
+                self.screen.display.blit(self.background_name, (-8, 480))
+                self.screen.display.blit(self.speaker_name, (
+                    -8 + self.background_name.get_width() // 2 - self.speaker_name.get_width() // 2, 488))
+            else:
+                if self.dialogue_data.speaker_name not in self.speakers:
+                    if self.speaker_offset > 128:
+                        self.speakers.append(self.dialogue_data.speaker_name)
+                    else:
+                        self.speaker_offset += 1
+
+                self.screen.display.blit(self.speaker_image, (1280 - self.speaker_image.get_width() + 128 - self.speaker_offset,
+                                                              78))
+                self.screen.display.blit(self.background_name,
+                                         (1280 - 124 - self.background_name.get_width() // 2, 480))
+                self.screen.display.blit(self.speaker_name, (
+                    1280 - 124 - self.background_name.get_width() // 2 + self.background_name.get_width() // 2 - self.speaker_name.get_width() // 2,
+                    488))
         self.screen.display.blit(self.surface, (0, 589))

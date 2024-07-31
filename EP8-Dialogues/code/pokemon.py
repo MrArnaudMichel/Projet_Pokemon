@@ -6,7 +6,15 @@ from move import Move
 
 
 class Pokemon:
-    def __init__(self, data, level: int):
+    """
+    Pokémon class to manage the Pokémons
+    """
+    def __init__(self, data, level: int) -> None:
+        """
+        Initialize the Pokémons
+        :param data:
+        :param level:
+        """
         self.klass = data['klass']
         self.id = data['id']
         self.dbSymbol = data['dbSymbol']
@@ -67,6 +75,10 @@ class Pokemon:
         self.evolution = None
 
     def get_types(self):
+        """
+        Get the types of the Pokémon
+        :return:
+        """
         type1 = self.forms[0]['type1']
         type2 = self.forms[0]['type2']
         if type2 == "__undef__":
@@ -74,6 +86,10 @@ class Pokemon:
         return [type1, type2]
 
     def get_base_stats(self):
+        """
+        Get the base stats of the Pokémon
+        :return:
+        """
         return {
             "hp": self.forms[0]['baseHp'],
             "atk": self.forms[0]['baseAtk'],
@@ -84,6 +100,11 @@ class Pokemon:
         }
 
     def update_stats(self, stat):
+        """
+        Update the stats of the Pokémon
+        :param stat:
+        :return:
+        """
         base_stat = self.get_base_stats()[stat]
         iv = self.ivs[stat]
         ev = self.get_ev()[stat]
@@ -94,6 +115,10 @@ class Pokemon:
         return math.floor((((2 * base_stat + iv + math.floor(ev / 4)) * level / 100) + 5) * nature)
 
     def xp_to_next_level(self):
+        """
+        Get the experience to the next level
+        :return:
+        """
         if self.level == 100:
             return 0
         if self.experienceType == 1:
@@ -115,6 +140,10 @@ class Pokemon:
                 return math.floor((self.level ** 3) * (160 - self.level) / 100)
 
     def set_moves(self):
+        """
+        Set the moves of the Pokémon
+        :return:
+        """
         list_move: list[dict] = []
         list_attack: list[Move] = []
         for move in self.moveSet:
@@ -123,19 +152,23 @@ class Pokemon:
                     list_move.append(move)
             except:
                 pass
-        min = 2
-        if len(list_move) < min:
-            min = len(list_move)
-        max = 4
+        minimum = 2
+        if len(list_move) < minimum:
+            minimum = len(list_move)
+        maximum = 4
         if len(list_move) < 4:
-            max = len(list_move)
-        for i in range(random.randint(min, max)):
-            chosed = random.choice(list_move)
-            list_move.remove(chosed)
-            list_attack.append(Move.createMove(chosed['move']))
+            maximum = len(list_move)
+        for i in range(random.randint(minimum, maximum)):
+            chosen = random.choice(list_move)
+            list_move.remove(chosen)
+            list_attack.append(Move.createMove(chosen['move']))
         return list_attack
 
     def get_ev(self):
+        """
+        Get the effort values of the Pokémon
+        :return:
+        """
         return {
             "hp": self.forms[0]["evHp"],
             "atk": self.forms[0]["evAtk"],
@@ -147,4 +180,10 @@ class Pokemon:
 
     @staticmethod
     def create_pokemon(name: str, level: int) -> "Pokemon":
+        """
+        Create a Pokémon from the name
+        :param name:
+        :param level:
+        :return:
+        """
         return Pokemon(json.load(open(f"../../assets/json/pokemon/{name.lower()}.json")), level)

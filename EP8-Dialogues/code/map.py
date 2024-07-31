@@ -15,9 +15,17 @@ from tool import Tool
 
 
 class Map:
-    def __init__(self, screen: Screen, controller: Controller):
-        self.controller = controller
+    """
+    Map class to manage the map
+    """
+    def __init__(self, screen: Screen, controller: Controller) -> None:
+        """
+        Initialize the map
+        :param screen:
+        :param controller:
+        """
         self.screen: Screen = screen
+        self.controller: Controller = controller
         self.tmx_data: pytmx.TiledMap | None = None
         self.map_layer: pyscroll.BufferedRenderer | None = None
         self.group: pyscroll.PyscrollGroup | None = None
@@ -29,15 +37,20 @@ class Map:
 
         self.current_map: Switch = Switch("switch", "map_0", pygame.Rect(0, 0, 0, 0), 0)
         self.map_name: str | None = None
-        self.map_name_text = None
+        self.map_name_text: None | str = None
 
-        self.image_change_map = pygame.image.load("../../assets/interfaces/maps/frame_map.png").convert_alpha()
-        self.animation_change_map = 0
-        self.animation_change_map_active = False
+        self.image_change_map: pygame.image = pygame.image.load("../../assets/interfaces/maps/frame_map.png").convert_alpha()
+        self.animation_change_map: int = 0
+        self.animation_change_map_active: bool = False
 
         self.switch_map(self.current_map)
 
     def switch_map(self, switch: Switch) -> None:
+        """
+        Switch the map
+        :param switch:
+        :return:
+        """
         self.tmx_data = pytmx.load_pygame(f"../../assets/map/{switch.name}.tmx")
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
@@ -77,6 +90,11 @@ class Map:
         self.current_map = switch
 
     def add_player(self, player) -> None:
+        """
+        Add the player to the map
+        :param player:
+        :return:
+        """
         self.group.add(player)
         self.player = player
         self.player.align_hitbox()
@@ -84,6 +102,10 @@ class Map:
         self.player.add_collisions(self.collisions)
 
     def update(self) -> None:
+        """
+        Update the map
+        :return:
+        """
         if self.player:
             if self.player.change_map and self.player.step >= 8:
                 self.switch_map(self.player.change_map)
@@ -96,10 +118,20 @@ class Map:
             self.draw_change_map()
 
     def pose_player(self, switch: Switch) -> None:
+        """
+        Pose the player on the map
+        :param switch:
+        :return:
+        """
         position = self.tmx_data.get_object_by_name("spawn " + self.current_map.name + " " + str(switch.port))
         self.player.position = pygame.math.Vector2(position.x, position.y)
 
-    def save_in_file(self, path: str):
+    def save_in_file(self, path: str) -> None:
+        """
+        Save the map in a file
+        :param path:
+        :return:
+        """
         if not pathlib.Path(f"../../assets/saves/{path}/maps/{self.current_map.name}").exists():
             os.makedirs(f"../../assets/saves/{path}/maps/{self.current_map.name}")
         with open(f"../../assets/saves/{path}/maps/{self.current_map.name}", "w") as file:
@@ -108,20 +140,34 @@ class Map:
             with open(f"../../assets/saves/{path}/maps/{self.current_map.name}/layer{i}", "w") as file:
                 json.dump(layer.data, file)
 
-    def set_draw_change_map(self, map_name: str):
+    def set_draw_change_map(self, map_name: str) -> None:
+        """
+        Set the draw change map
+        :param map_name:
+        :return:
+        """
         if not self.animation_change_map_active:
             self.map_name = self.sql.get_name_map(map_name)
             self.animation_change_map_active = True
             self.animation_change_map = 0
             self.map_name_text = Tool().create_text(self.map_name, 30, (255, 255, 255))
 
-    def get_surface_change_map(self, alpha: int = 0):
+    def get_surface_change_map(self, alpha: int = 0) -> pygame.Surface:
+        """
+        Get the surface change map
+        :param alpha:
+        :return:
+        """
         surface_change_map = pygame.Surface((215, 53), pygame.SRCALPHA).convert_alpha()
         surface_change_map.blit(self.image_change_map, (0, 0))
         surface_change_map.set_alpha(alpha)
         return surface_change_map
 
-    def draw_change_map(self):
+    def draw_change_map(self) -> None:
+        """
+        Draw the change map animation
+        :return:
+        """
         if self.animation_change_map < 255:
             surface = self.get_surface_change_map(self.animation_change_map).convert_alpha()
             self.screen.display.blit(surface, (self.screen.display.get_width() - self.animation_change_map, 600))
