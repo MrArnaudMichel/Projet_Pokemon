@@ -2,7 +2,14 @@ import json
 
 
 class Move:
+    """
+    Move class to manage the moves
+    """
     def __init__(self, move_data):
+        """
+        Initialize the move
+        :param move_data:
+        """
         self.id = move_data.get('id')
         self.dbSymbol = move_data.get('dbSymbol')
         self.klass = move_data.get('klass')
@@ -46,4 +53,9 @@ class Move:
 
     @staticmethod
     def createMove(name: str) -> "Move":
+        """
+        Create a move from the name
+        :param name:
+        :return:
+        """
         return Move(json.load(open(f"../../assets/json/moves/{name.lower()}.json")))
