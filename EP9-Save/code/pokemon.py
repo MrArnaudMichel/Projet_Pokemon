@@ -178,6 +178,13 @@ class Pokemon:
             "spd": self.forms[0]["evSpd"]
         }
 
+    def __str__(self):
+        """
+        String representation of the Pokémon
+        :return:
+        """
+        return f"{self.klass} - {self.level} - {self.dbSymbol} - {self.type}"
+
     @staticmethod
     def create_pokemon(name: str, level: int) -> "Pokemon":
         """

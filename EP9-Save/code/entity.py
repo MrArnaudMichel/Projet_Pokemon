@@ -8,7 +8,7 @@ class Entity(pygame.sprite.Sprite):
     """
     Entity class to manage the entities
     """
-    def __init__(self, screen: Screen, x: int, y: int):
+    def __init__(self, screen: Screen, x: int, y: int, spreadsheet: str) -> None:
         """
         Initialize the entity
         :param screen:
@@ -17,7 +17,7 @@ class Entity(pygame.sprite.Sprite):
         """
         super().__init__()
         self.screen: Screen = screen
-        self.spritesheet: pygame.image = pygame.image.load("../../assets/sprite/hero_01_red_m_walk.png")
+        self.spritesheet: pygame.image = pygame.image.load(f"../../assets/sprite/{spreadsheet}_walk.png")
         self.image: pygame.image = Tool.split_image(self.spritesheet, 0, 0, 24, 32)
         self.position: pygame.math.Vector2 = pygame.math.Vector2(x, y)
         self.rect: pygame.Rect = self.image.get_rect()

@@ -15,7 +15,7 @@ class Player(Entity):
     Player class to manage the player
     """
     def __init__(self, screen: Screen, controller: Controller, x: int, y: int, keylistener: KeyListener,
-                 ingame_time: datetime.timedelta = datetime.timedelta(seconds=0)) -> None:
+                 ingame_time: datetime.timedelta = datetime.timedelta(seconds=0), gender: str = "red_m") -> None:
         """
         Initialize the player
         :param screen:
@@ -25,7 +25,8 @@ class Player(Entity):
         :param keylistener:
         :param ingame_time:
         """
-        super().__init__(screen, x, y)
+        self.gender: str = gender
+        super().__init__(screen, x, y, f"hero_01_{gender}")
         self.keylistener: KeyListener = keylistener
         self.controller: Controller = controller
         self.pokemons: list[Pokemon] = []
@@ -36,6 +37,7 @@ class Player(Entity):
         self.pokedollars: int = 0
 
         self.pokemons.append(Pokemon.create_pokemon("Bulbasaur", 5))
+        print(self.pokemons[0])
         self.ingame_time: datetime.timedelta = ingame_time
 
         self.can_move = True

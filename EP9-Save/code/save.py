@@ -20,6 +20,7 @@ class Save:
         self.path: str = path
         self.map: Map = map
         self.sql: SQL = SQL()
+        self.player = self.map.player
 
     def save(self) -> None:
         """
@@ -27,19 +28,20 @@ class Save:
         :return:
         """
         self.map.save_in_file(self.path)
-        position = self.map.player.position
+        position = self.player.position
         player_info = {
-            "name": self.map.player.name,
+            "name": self.player.name,
+            "gender": self.player.gender,
             "position": {
                 "x": position[0],
                 "y": position[1]
             },
-            "direction": self.map.player.direction,
-            "pokemon": self.map.player.pokemons,
-            "inventory": self.map.player.inventory,
-            "pokedex": self.map.player.pokedex,
-            "pokedollars": self.map.player.pokedollars,
-            "ingame_time": self.map.player.ingame_time.seconds
+            "direction": self.player.direction,
+            "pokemons": self.player.pokemons,
+            "inventory": self.player.inventory,
+            "pokedex": self.player.pokedex,
+            "pokedollars": self.player.pokedollars,
+            "ingame_time": self.player.ingame_time.seconds
         }
         map_info = {
             "path": self.map.current_map.name,
@@ -67,7 +69,7 @@ class Save:
                                      data["player"]["position"]["x"], data["player"]["position"]["y"],
                                      datetime.timedelta(seconds=data["player"]["ingame_time"]))
             self.map.player.direction = data["player"]["direction"]
-            self.map.player.pokemons = data["player"]["pokemon"]
+            self.map.player.pokemons = data["player"]["pokemons"]
             self.map.player.inventory = data["player"]["inventory"]
             self.map.player.pokedex = data["player"]["pokedex"]
             self.map.player.pokedollars = data["player"]["pokedollars"]
