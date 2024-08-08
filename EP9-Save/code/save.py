@@ -30,7 +30,6 @@ class Save:
         position = self.map.player.position
         player_info = {
             "name": self.map.player.name,
-            # "type": self.map.player.type,
             "position": {
                 "x": position[0],
                 "y": position[1]
