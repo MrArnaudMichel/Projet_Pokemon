@@ -23,11 +23,12 @@ class Game:
         self.controller = Controller()
         self.map: Map = Map(self.screen, self.controller)
         self.keylistener: KeyListener = KeyListener()
-        self.player: Player = Player(self.screen, self.controller, 512, 288, self.keylistener)
-        self.map.add_player(self.player)
-        self.save: Save = Save("save_0", self.map)
-        self.option: Option = Option(self.screen, self.controller, self.map, "fr", self.save, self.keylistener)
+        self.player: Player | None = Player(self.screen, self.controller, 512, 288, self.keylistener)
         self.dialogue: Dialogue = Dialogue(self.player, self.screen)
+        self.save: Save = Save("save_0", self.map, self.player, self.keylistener, self.dialogue)
+        self.save.load()
+        self.option: Option = Option(self.screen, self.controller, self.map, "fr", self.save, self.keylistener, self.dialogue)
+
 
     def run(self) -> None:
         """
@@ -41,14 +42,19 @@ class Game:
                 if pygame.K_e in self.keylistener.keys and not self.dialogue.active:
                     self.dialogue.load_data(1001, 0)
                     self.keylistener.remove_key(pygame.K_e)
-                if self.dialogue.active:
-                    self.dialogue.update()
-                    if pygame.K_e in self.keylistener.keys:
-                        self.dialogue.action()
-                        self.keylistener.remove_key(pygame.K_e)
+                    self.dialogue_controller()
             else:
                 self.option.update()
+                self.dialogue_controller()
+                self.option.check_inputs()
             self.screen.update()
+
+    def dialogue_controller(self):
+        if self.dialogue.active:
+            self.dialogue.update()
+            if self.keylistener.key_pressed(self.controller.get_key("action")):
+                self.dialogue.action()
+                self.keylistener.remove_key(self.controller.get_key("action"))
 
     def handle_input(self) -> None:
         """

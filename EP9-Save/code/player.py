@@ -25,7 +25,6 @@ class Player(Entity):
         :param keylistener:
         :param ingame_time:
         """
-        self.gender: str = gender
         super().__init__(screen, x, y, f"hero_01_{gender}")
         self.keylistener: KeyListener = keylistener
         self.controller: Controller = controller
@@ -34,10 +33,10 @@ class Player(Entity):
         self.pokedex: None = None
 
         self.name: str = "Lucas"
+        self.gender: str = gender
         self.pokedollars: int = 0
 
         self.pokemons.append(Pokemon.create_pokemon("Bulbasaur", 5))
-        print(self.pokemons[0])
         self.ingame_time: datetime.timedelta = ingame_time
 
         self.can_move = True
@@ -49,6 +48,25 @@ class Player(Entity):
         self.switchs: list[Switch] | None = None
         self.collisions: list[pygame.Rect] | None = None
         self.change_map: Switch | None = None
+
+    def from_dict(self, data: dict) -> None:
+        """
+        Set the player from a dictionary
+        :param data:
+        :return:
+        """
+        self.name = data["name"]
+        self.gender = data["gender"]
+        self.update_spritesheet()
+        self.position = pygame.math.Vector2(data["position"]["x"], data["position"]["y"])
+        self.align_hitbox()
+        self.direction = data["direction"]
+        self.pokemons = [Pokemon.from_dict(pokemon) for pokemon in data["pokemons"]]
+        self.inventory = data["inventory"]
+        self.pokedex = data["pokedex"]
+        self.pokedollars = data["pokedollars"]
+        self.ingame_time = datetime.timedelta(seconds=data["ingame_time"])
+
 
     def update(self) -> None:
         """
@@ -141,6 +159,8 @@ class Player(Entity):
         Check the input of the player
         :return:
         """
+        if self.animation_walk:
+            return
         if self.keylistener.key_pressed(self.controller.get_key("bike")):
             self.switch_bike()
         if self.keylistener.key_pressed(self.controller.get_key("quit")):
@@ -169,3 +189,6 @@ class Player(Entity):
         """
         if self.screen.get_delta_time() > 0:
             self.ingame_time += datetime.timedelta(seconds=self.screen.get_delta_time() / 1000)
+
+    def update_spritesheet(self):
+        pass

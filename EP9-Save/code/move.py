@@ -59,3 +59,61 @@ class Move:
         :return:
         """
         return Move(json.load(open(f"../../assets/json/moves/{name.lower()}.json")))
+
+    def to_dict(self):
+        """
+        Convertir l'objet Move en dictionnaire sérialisable.
+        :return: dict
+        """
+        return {
+            'id': self.id,
+            'dbSymbol': self.dbSymbol,
+            'klass': self.klass,
+            'mapUse': self.mapUse,
+            'type': self.type,
+            'power': self.power,
+            'accuracy': self.accuracy,
+            'maxpp': self.maxpp,
+            'pp': self.pp,
+            'category': self.category,
+            'movecriticalRate': self.movecriticalRate,
+            'battleEngineMethod': self.battleEngineMethod,
+            'priority': self.priority,
+            'isDirect': self.isDirect,
+            'isCharge': self.isCharge,
+            'isRecharge': self.isRecharge,
+            'isBlocable': self.isBlocable,
+            'isSnatchable': self.isSnatchable,
+            'isMirrorMove': self.isMirrorMove,
+            'isPunch': self.isPunch,
+            'isGravity': self.isGravity,
+            'isMagicCoatAffected': self.isMagicCoatAffected,
+            'isUnfreeze': self.isUnfreeze,
+            'isSoundAttack': self.isSoundAttack,
+            'isDistance': self.isDistance,
+            'isHeal': self.isHeal,
+            'isAuthentic': self.isAuthentic,
+            'isBite': self.isBite,
+            'isPulse': self.isPulse,
+            'isBallistics': self.isBallistics,
+            'isMental': self.isMental,
+            'isNonSkyBattle': self.isNonSkyBattle,
+            'isDance': self.isDance,
+            'isKingRockUtility': self.isKingRockUtility,
+            'isPowder': self.isPowder,
+            'effectChance': self.effectChance,
+            'battleEngineAimedTarget': self.battleEngineAimedTarget,
+            'battleStageMod': self.battleStageMod,
+            'moveStatus': self.moveStatus
+        }
+
+    @staticmethod
+    def from_dict(data: dict) -> "Move":
+        """
+        Recréer un Move à partir d'un dictionnaire.
+        :param data: dict
+        :return: Move
+        """
+        move = Move.__new__(Move)
+        move.__dict__.update(data)
+        return move

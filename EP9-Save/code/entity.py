@@ -123,6 +123,8 @@ class Entity(pygame.sprite.Sprite):
         Align the hitbox with map grid (16x16)
         :return:
         """
+        if self.is_aligned():
+            return
         self.position.x += 16
         self.rect.center = self.position
         self.hitbox.midbottom = self.rect.midbottom
@@ -133,6 +135,13 @@ class Entity(pygame.sprite.Sprite):
             self.rect.y -= 1
             self.hitbox.midbottom = self.rect.midbottom
         self.position = pygame.math.Vector2(self.rect.center)
+
+    def is_aligned(self) -> bool:
+        """
+        Check if the entity is aligned with the map grid
+        :return:
+        """
+        return self.hitbox.x % 16 == 0 and self.hitbox.y % 16 == 0
 
     def get_all_images(self, spritesheet: pygame.image) -> dict[str, list[pygame.image]]:
         """
@@ -154,3 +163,14 @@ class Entity(pygame.sprite.Sprite):
             for j, key in enumerate(all_images.keys()):
                 all_images[key].append(Tool.split_image(spritesheet, i * width, j * height, 24, 32))
         return all_images
+
+    def set_position(self, x: int, y: int) -> None:
+        """
+        Set the position of the entity
+        :param x:
+        :param y:
+        :return:
+        """
+        self.position = pygame.math.Vector2(x, y)
+        self.rect.center = self.position
+        self.hitbox.midbottom = self.rect.midbottom

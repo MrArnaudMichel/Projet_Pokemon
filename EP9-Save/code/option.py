@@ -8,6 +8,7 @@ from save import Save
 from screen import Screen
 from sql import SQL
 from tool import Tool
+from dialogue import Dialogue
 
 
 class Option:
@@ -15,7 +16,7 @@ class Option:
     Option class to manage the options
     """
     def __init__(self, screen: Screen, controller: Controller, map: Map, language: str, save: Save,
-                 keylistener: KeyListener) -> None:
+                 keylistener: KeyListener, dialogue: Dialogue) -> None:
         """
         Initialize the options
         :param screen:
@@ -24,6 +25,7 @@ class Option:
         :param language:
         :param save:
         :param keylistener:
+        :param dialogue:
         """
         self.screen: Screen = screen
         self.controller: Controller = controller
@@ -33,6 +35,7 @@ class Option:
         self.sql: SQL = SQL()
         self.player: Player = self.map.player
         self.keylistener: KeyListener = keylistener
+        self.dialogue: Dialogue = dialogue
 
         self.full_background: pygame.Surface = pygame.surface.Surface(self.screen.get_size())
         self.image_background: pygame.Surface | None = None
@@ -52,6 +55,11 @@ class Option:
             self.initialize()
         self.draw()
         self.check_end()
+
+    def check_inputs(self):
+        if self.keylistener.key_pressed(self.controller.get_key("action")):
+            self.save.save()
+            self.keylistener.remove_key(self.controller.get_key("action"))
 
     def initialize(self) -> None:
         """
@@ -78,6 +86,8 @@ class Option:
         Check if the options is finished
         :return:
         """
+        if self.dialogue.active:
+            return
         if self.keylistener.key_pressed(self.controller.get_key("quit")):
             self.initialization = False
             self.player.menu_option = False
