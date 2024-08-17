@@ -53,7 +53,6 @@ class Map:
         :return:
         """
         path = f"../../assets/saves/{self.current_save}/{switch.name}.tmx" if self.current_save else f"../../assets/map/{switch.name}.tmx"
-        print(path)
         self.tmx_data = pytmx.load_pygame(path)
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
