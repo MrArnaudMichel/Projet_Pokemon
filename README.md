@@ -16,25 +16,22 @@
 
 ---
 ## Description
-This is a Pokemon fan game made in python using pygame.
+
+This is a Pokemon fan game made in python using pygame. The game is a 2D top-down game where you can move around the map, interact with objects and NPCs, and battle wild Pokémon. It is still in development and is not yet complete. The game is inspired by the Pokémon Essentials project and aims to recreate the experience of playing a Pokémon game on the PC. It is open-source and anyone can contribute to the project.
 
 ## Installation
-To install this project, you will need to download the repository. You will also need to install the following modules:
-- pygame (pygame-ce for Python 3.11)
-- pytmx
-- pyscroll
 
-_Theoretically installed by default_:
-- datetime
-- time
-- pathlib
-- random
-- sys
-- os
+To install the game, you will need to clone the repository to your computer. You can do this by running the following command in the terminal:
+```git clone https://github.com/MrArnaudMichel/Projet_Pokemon.git```
+
+You will also need to install the required dependencies. You can do this by running the following command in the terminal:
+```pip install -r requirements.txt```
 
 ## Usage
-To run the game, you will need to run the main.py file. You can do this by running the following command in the terminal:
-```python3 code/main.py```
+
+To run the game, you will need to run the main.py file. You can do this by going in the last version of the game and start:
+```python main.py```
+in the code folder.
 
 ## Contributing
 If you want to contribute to this project, you can fork the repository and clone it to your computer. You can then make changes and submit a pull request.
@@ -42,21 +39,21 @@ If you want to contribute to this project, you can fork the repository and clone
 ## Credits
 - [Pokémon SDK](https://pokemonworkshop.com/fr/sdk) for the sprites and the tileset.
 - [Flaticon](https://www.flaticon.com/) for the icons.
-- [Pokémon Essentials](https://essentialsdocs.fandom.com/wiki/Essentials_Docs_Wiki) for the inspiration.
-- [Pokémon Trash](https://www.pokemontrash.com/) for the data about the Pokémon.
 - [Foret Eternelle](https://www.pokemonforeteternelle.com/) for the graphic inspiration.
 - [Poképédia](https://www.pokepedia.fr/) for the data about the Pokémon.
+- [Pokestir](https://www.pokestir.com/home) for the music.
 
 ## License
-This Project Does Not Have A License.
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Questions
-If you have any questions, you can contact me at the following email address: <a> arnaudd.michel@gmail.com </a>
+If you have any questions, you can contact me at the following email address: <a> contact@arnaudmichel.fr</a> or on my [Discord](https://discord.gg/rSXktDNJcA) server.
 
 ## Screenshots
-![Screenshot 1](https://media.discordapp.net/attachments/820340493774356493/1101275013216227418/item.png?width=1170&height=658)
-![Screenshot 2](https://media.discordapp.net/attachments/820340493774356493/1101275013719535737/save.png?width=1170&height=658)
-![Screenshot 3](https://media.discordapp.net/attachments/820340493774356493/1101275014017318953/view.png?width=1170&height=658)
+
+| ![img.png](app/images/image_pres_0.png)  |  ![img.png](app/images/image_pres_1.png) |
+|---|---|
 
 ## Links
 - [Repository](https://github.com/MrArnaudMichel/Projet_Pokemon)
@@ -64,41 +61,8 @@ If you have any questions, you can contact me at the following email address: <a
 - [MyGithub](https://github.com/MrArnaudMichel)
 - [MyWebsite](https://mrarnaudmichel.github.io)
 
-## Features
-- [x] Player
-  - [x] Movement
-  - [x] Interaction
-  - [ ] Inventory
-  - [ ] Pokédex
-- [ ] Pokémon
-- [ ] Items
-- [x] Map
-  - [x] Tileset
-  - [x] Collisions
-  - [x] Layers
-  - [x] Teleportation
-  - [ ] Events
-  - [ ] Music
-  - [ ] Day/Night Cycle
-  - [ ] Time
-- [x] Menu
-- [ ] Save
-- [ ] Options
-- [ ] Credits
-- [ ] Title Screen
-- [ ] Storyline
-- [ ] Battle
-- [ ] Pokémons
-- [ ] CS
-  - [ ] Cut
-  - [ ] Fly
-  - [ ] Surf
-  - [ ] Strength
-  - [ ] Flash
-  - [ ] Rock Smash
-
 ## Donations
 If you want to support me, you can donate with the following link: [PayPal](https://paypal.me/arnaud134)
 
 ---
-© 2023 Arnaud Michel. All Rights Reserved.
+© 2024 Arnaud Michel. All Rights Reserved.

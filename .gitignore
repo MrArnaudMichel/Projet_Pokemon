@@ -4,3 +4,6 @@ Scripts
 pyvenv.cfg
 .idea
 include
+
+assets/saves
+assets/interfaces/characters
