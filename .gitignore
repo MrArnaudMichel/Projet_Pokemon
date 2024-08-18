@@ -6,3 +6,4 @@ pyvenv.cfg
 include
 
 assets/saves
+assets/interfaces/characters

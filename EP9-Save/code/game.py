@@ -40,9 +40,9 @@ class Game:
             if not self.player.menu_option:
                 self.map.update()
                 if pygame.K_e in self.keylistener.keys and not self.dialogue.active:
-                    self.dialogue.load_data(1001, 0)
+                    self.dialogue.load_data(100, 1)
                     self.keylistener.remove_key(pygame.K_e)
-                    self.dialogue_controller()
+                self.dialogue_controller()
             else:
                 self.option.update()
                 self.dialogue_controller()
