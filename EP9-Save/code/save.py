@@ -1,14 +1,13 @@
-import datetime
-import json
 import os
+import json
 import pathlib
-from time import sleep
 
 from map import Map
 from player import Player
 from sql import SQL
 from keylistener import KeyListener
 from dialogue import Dialogue
+
 
 class Save:
     """
@@ -32,20 +31,20 @@ class Save:
         Save the game
         :return:
         """
-        position = self.player.position
+        position = self.map.player.position
         player_info = {
-            "name": self.player.name,
+            "name": self.map.player.name,
             "gender": self.player.gender,
             "position": {
                 "x": position[0],
                 "y": position[1]
             },
-            "direction": self.player.direction,
+            "direction": self.map.player.direction,
             "pokemons": [pokemon.to_dict() for pokemon in self.player.pokemons],
-            "inventory": self.player.inventory,
-            "pokedex": self.player.pokedex,
-            "pokedollars": self.player.pokedollars,
-            "ingame_time": self.player.ingame_time.seconds
+            "inventory": self.map.player.inventory,
+            "pokedex": self.map.player.pokedex,
+            "pokedollars": self.map.player.pokedollars,
+            "ingame_time": self.map.player.ingame_time.seconds
         }
         map_info = {
             "path": self.map.current_map.name,
@@ -55,6 +54,7 @@ class Save:
             "player": player_info,
             "map": map_info
         }
+
         if not pathlib.Path(f"../../assets/saves/{self.path}/data.pkmn").exists():
             os.makedirs(f"../../assets/saves/{self.path}")
             pathlib.Path(f"../../assets/saves/{self.path}/data.pkmn").touch()
@@ -78,7 +78,6 @@ class Save:
             self.map.load_map("map_0")
             self.player.set_position(512, 288)
         self.map.add_player(self.player)
-
 
     def dump(self, element: dict) -> str:
         """

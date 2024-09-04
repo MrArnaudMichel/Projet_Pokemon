@@ -57,7 +57,6 @@ class Player(Entity):
         """
         self.name = data["name"]
         self.gender = data["gender"]
-        self.update_spritesheet()
         self.position = pygame.math.Vector2(data["position"]["x"], data["position"]["y"])
         self.align_hitbox()
         self.direction = data["direction"]
@@ -189,6 +188,3 @@ class Player(Entity):
         """
         if self.screen.get_delta_time() > 0:
             self.ingame_time += datetime.timedelta(seconds=self.screen.get_delta_time() / 1000)
-
-    def update_spritesheet(self):
-        pass

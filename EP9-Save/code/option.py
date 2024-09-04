@@ -25,7 +25,6 @@ class Option:
         :param language:
         :param save:
         :param keylistener:
-        :param dialogue:
         """
         self.screen: Screen = screen
         self.controller: Controller = controller

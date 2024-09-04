@@ -178,13 +178,6 @@ class Pokemon:
             "spd": self.forms[0]["evSpd"]
         }
 
-    def __str__(self):
-        """
-        String representation of the Pokémon
-        :return:
-        """
-        return f"{self.klass} - {self.level} - {self.dbSymbol} - {self.type}"
-
     def to_dict(self):
         """
         Convertir l'objet Pokémon en dictionnaire sérialisable.
@@ -217,15 +210,10 @@ class Pokemon:
         }
 
     @staticmethod
-    def from_dict(data: dict) -> "Pokemon":
-        """
-        Recréer un Pokémon à partir d'un dictionnaire.
-        :param data: dict
-        :return: Pokemon
-        """
+    def from_dict(data: dict):
         pokemon = Pokemon.__new__(Pokemon)
         pokemon.__dict__.update(data)
-        pokemon.moves = [Move.from_dict(move_data) for move_data in data['moves']]
+        pokemon.moves = [Move.from_dict(move_data) for move_data in data["moves"]]
         return pokemon
 
     @staticmethod

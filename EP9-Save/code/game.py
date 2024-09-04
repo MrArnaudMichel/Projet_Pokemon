@@ -23,12 +23,11 @@ class Game:
         self.controller = Controller()
         self.map: Map = Map(self.screen, self.controller)
         self.keylistener: KeyListener = KeyListener()
-        self.player: Player | None = Player(self.screen, self.controller, 512, 288, self.keylistener)
+        self.player: Player = Player(self.screen, self.controller, 512, 288, self.keylistener)
         self.dialogue: Dialogue = Dialogue(self.player, self.screen)
         self.save: Save = Save("save_0", self.map, self.player, self.keylistener, self.dialogue)
         self.save.load()
         self.option: Option = Option(self.screen, self.controller, self.map, "fr", self.save, self.keylistener, self.dialogue)
-
 
     def run(self) -> None:
         """
@@ -40,7 +39,7 @@ class Game:
             if not self.player.menu_option:
                 self.map.update()
                 if pygame.K_e in self.keylistener.keys and not self.dialogue.active:
-                    self.dialogue.load_data(100, 1)
+                    self.dialogue.load_data(1001, 0)
                     self.keylistener.remove_key(pygame.K_e)
                 self.dialogue_controller()
             else:

@@ -6,7 +6,6 @@ import pygame
 import pyscroll
 import pytmx
 
-from xml.etree.ElementTree import Element, SubElement, tostring, ElementTree
 from controller import Controller
 from player import Player
 from screen import Screen
@@ -19,7 +18,7 @@ class Map:
     """
     Map class to manage the map
     """
-    def __init__(self, screen: Screen, controller: Controller, current_save: str = ""):
+    def __init__(self, screen: Screen, controller: Controller) -> None:
         """
         Initialize the map
         :param screen:
@@ -36,7 +35,7 @@ class Map:
         self.collisions: list[pygame.Rect] | None = None
         self.sql: SQL = SQL()
 
-        self.current_map: Switch | None = None
+        self.current_map: Switch | None
         self.map_name: str | None = None
         self.map_name_text: None | str = None
 
@@ -44,16 +43,13 @@ class Map:
         self.animation_change_map: int = 0
         self.animation_change_map_active: bool = False
 
-        self.current_save: str = ""
-
     def switch_map(self, switch: Switch) -> None:
         """
         Switch the map
         :param switch:
         :return:
         """
-        path = f"../../assets/saves/{self.current_save}/{switch.name}.tmx" if self.current_save else f"../../assets/map/{switch.name}.tmx"
-        self.tmx_data = pytmx.load_pygame(path)
+        self.tmx_data = pytmx.load_pygame(f"../../assets/map/{switch.name}.tmx")
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.group = pyscroll.PyscrollGroup(map_layer=self.map_layer, default_layer=9)
@@ -177,12 +173,5 @@ class Map:
             self.animation_change_map_active = False
             self.animation_change_map = 0
 
-
     def load_map(self, map: str) -> None:
-        """
-        Load the map from the save
-        :param path_save:
-        :param map:
-        :return:
-        """
-        self.switch_map(Switch("switch", map, pygame.Rect(0, 0, 0, 0), 0))
+        self.switch_map(Switch("switch", map, pygame.rect.Rect(0, 0, 0, 0), 0))
