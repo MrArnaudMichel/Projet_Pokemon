@@ -55,7 +55,10 @@ class Option:
         self.draw()
         self.check_end()
 
-    def check_inputs(self):
+    def check_inputs(self) -> None:
+        """
+        Check the inputs of the options
+        """
         if self.keylistener.key_pressed(self.controller.get_key("action")):
             self.save.save()
             self.keylistener.remove_key(self.controller.get_key("action"))

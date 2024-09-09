@@ -48,7 +48,10 @@ class Game:
                 self.option.check_inputs()
             self.screen.update()
 
-    def dialogue_controller(self):
+    def dialogue_controller(self) -> None:
+        """
+        Dialogue controller to manage the dialogues
+        """
         if self.dialogue.active:
             self.dialogue.update()
             if self.keylistener.key_pressed(self.controller.get_key("action")):

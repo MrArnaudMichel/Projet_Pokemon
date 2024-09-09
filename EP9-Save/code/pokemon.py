@@ -210,7 +210,10 @@ class Pokemon:
         }
 
     @staticmethod
-    def from_dict(data: dict):
+    def from_dict(data: dict) -> "Pokemon":
+        """
+        Create a Pokémon from a dictionary
+        """
         pokemon = Pokemon.__new__(Pokemon)
         pokemon.__dict__.update(data)
         pokemon.moves = [Move.from_dict(move_data) for move_data in data["moves"]]

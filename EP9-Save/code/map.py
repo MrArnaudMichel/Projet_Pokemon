@@ -174,4 +174,7 @@ class Map:
             self.animation_change_map = 0
 
     def load_map(self, map: str) -> None:
+        """
+        Load the map from the map name
+        """
         self.switch_map(Switch("switch", map, pygame.rect.Rect(0, 0, 0, 0), 0))
