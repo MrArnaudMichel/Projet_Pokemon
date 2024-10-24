@@ -36,6 +36,10 @@ class Entity(pygame.sprite.Sprite):
 
         self.speed: int = 1
 
+
+        self.stairs_walk: int = 0
+        self.stairs_direction: str = "down"
+
     def update(self) -> None:
         """
         Update the entity
@@ -106,6 +110,9 @@ class Entity(pygame.sprite.Sprite):
                     self.position.y -= self.speed
                 elif self.direction == "down":
                     self.position.y += self.speed
+                if self.stairs_walk > 0:
+                    self.stairs_walk -= 1
+                    self.move_stairs()
                 self.animtion_step_time = 0
             elif self.step >= 16:
                 self.step = 0
@@ -170,3 +177,6 @@ class Entity(pygame.sprite.Sprite):
         self.position = pygame.math.Vector2(x, y)
         self.rect.center = self.position
         self.hitbox.midbottom = self.rect.midbottom
+
+    def move_stairs(self):
+        self.position.y += self.speed if self.direction == "right" else -self.speed

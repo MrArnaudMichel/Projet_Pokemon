@@ -14,7 +14,7 @@ class Screen:
         pygame.display.set_caption("Pokémon")
         pygame.display.set_icon(pygame.image.load("../../assets/app/logo_projet_pokemon.png"))
         self.clock: pygame.time.Clock = pygame.time.Clock()
-        self.framerate: int = 240
+        self.framerate: int = 144
         self.deltatime: float = 0.0
 
     def update(self) -> None:

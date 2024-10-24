@@ -47,7 +47,10 @@ class Player(Entity):
 
         self.switchs: list[Switch] | None = None
         self.collisions: list[pygame.Rect] | None = None
+        self.stairs: list[pygame.Rect] | None = None
         self.change_map: Switch | None = None
+
+
 
     def from_dict(self, data: dict) -> None:
         """

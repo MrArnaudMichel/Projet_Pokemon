@@ -33,6 +33,7 @@ class Map:
         self.player: Player | None = None
         self.switchs: list[Switch] | None = None
         self.collisions: list[pygame.Rect] | None = None
+        self.stairs: dict[str: pygame.Rect] | None = None
         self.sql: SQL = SQL()
 
         self.current_map: Switch | None
@@ -64,6 +65,7 @@ class Map:
 
         self.switchs = []
         self.collisions = []
+        self.stairs = {}
 
         for obj in self.tmx_data.objects:
             if obj.name == "collision":
@@ -74,6 +76,8 @@ class Map:
                     type, obj.name.split(" ")[1], pygame.Rect(obj.x, obj.y, obj.width, obj.height),
                     int(obj.name.split(" ")[-1])
                 ))
+            elif type == "stairs":
+                self.stairs[obj.name.split(" ")[-1]] = pygame.Rect(obj.x, obj.y, obj.width, obj.height)
 
         if self.player:
             self.pose_player(switch)
@@ -108,6 +112,27 @@ class Map:
             if self.player.change_map and self.player.step >= 8:
                 self.switch_map(self.player.change_map)
                 self.player.change_map = None
+            elif self.player.step == 0 and not self.player.stairs_walk:
+                for key, value in self.stairs.items():
+                    if self.player.direction == "right":
+                        if pygame.rect.Rect(self.player.hitbox.x + 16,self.player.hitbox.y, self.player.hitbox.w, self.player.hitbox.h).colliderect(value):
+                            if key == "right":
+                                self.player.stairs_walk = 16
+                                self.player.stairs_direction = "down"
+                        elif self.player.hitbox.colliderect(value):
+                            if key == "left":
+                                self.player.stairs_walk = 16
+                                self.player.stairs_direction = "down"
+                    elif self.player.direction == "left":
+                        if pygame.rect.Rect(self.player.hitbox.x - 16,self.player.hitbox.y, self.player.hitbox.w, self.player.hitbox.h).colliderect(value):
+                            if key == "left":
+                                self.player.stairs_walk = 16
+                                self.player.stairs_direction = "up"
+                        elif self.player.hitbox.colliderect(value):
+                            if key == "right":
+                                self.player.stairs_walk = 16
+                                self.player.stairs_direction = "up"
+
         self.group.update()
         self.group.center(self.player.rect.center)
         self.group.draw(self.screen.get_display())
