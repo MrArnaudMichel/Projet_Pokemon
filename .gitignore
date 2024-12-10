@@ -5,6 +5,4 @@ pyvenv.cfg
 .idea
 include
 
-assets/interfaces/characters
-
 assets/saves
